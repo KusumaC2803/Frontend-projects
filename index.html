@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>StockFlow — Trading & Portfolio Dashboard</title>
+  <link rel="stylesheet" href="css/custom.css">
+  <script src="https://unpkg.com/lightweight-charts@4.2.2/dist/lightweight-charts.standalone.production.js"></script>
+</head>
+<body>
+<div id="app">
+  <aside id="sidebar" class="sidebar">
+    <div class="brand">
+      <div class="brand-icon">↗</div>
+      <div><strong>StockFlow</strong><span>Trading Dashboard</span></div>
+    </div>
+    <nav class="nav">
+      <button class="nav-item active" data-section="dashboard">▦ <span>Dashboard</span></button>
+      <button class="nav-item" data-section="markets">▥ <span>Markets</span></button>
+      <button class="nav-item" data-section="watchlist">☆ <span>Watchlist</span><b id="watchlistCount">0</b></button>
+      <button class="nav-item" data-section="portfolio">◫ <span>Portfolio</span></button>
+      <button class="nav-item" data-section="transactions">↺ <span>Transactions</span></button>
+      <button class="nav-item" data-section="news">▤ <span>Market News</span></button>
+    </nav>
+    <div class="sidebar-bottom">
+      <button id="themeToggle" class="nav-item">☾ <span>Dark Mode</span></button>
+      <button class="nav-item" data-section="settings">⚙ <span>Settings</span></button>
+    </div>
+  </aside>
+
+  <main class="main-content">
+    <header class="topbar">
+      <button id="sidebarToggle" class="icon-btn">☰</button>
+      <div class="search-wrap">
+        <span>⌕</span><input id="stockSearch" placeholder="Search stocks, symbols..." autocomplete="off">
+        <div id="searchResults" class="search-results"></div>
+      </div>
+      <div class="top-actions">
+        <span id="marketStatus" class="market-status"><i></i> Market status</span>
+        <button id="notificationButton" class="icon-btn">♧</button>
+        <div class="avatar">KC</div>
+      </div>
+    </header>
+
+    <div class="page-content">
+      <section id="dashboardSection" class="page-section active-section">
+        <div class="page-heading">
+          <div><small>PORTFOLIO OVERVIEW</small><h1>Good evening, Investor</h1><p>Track your portfolio, markets and investments in one place.</p></div>
+          <div class="actions">
+            <button id="refreshDashboard" class="secondary-btn">↻ Refresh</button>
+            <button id="addStockButton" class="primary-btn">＋ Add Stock</button>
+          </div>
+        </div>
+
+        <div class="metrics-grid">
+          <article class="metric-card"><div class="metric-label">Portfolio Value <span>◫</span></div><strong id="portfolioValue">$25,842.61</strong><div id="portfolioChange" class="positive">+$482.32 · +1.90%</div></article>
+          <article class="metric-card"><div class="metric-label">Today's Return <span>↗</span></div><strong id="todayReturn">+$482.32</strong><div id="todayReturnPercent" class="positive">+1.90%</div></article>
+          <article class="metric-card"><div class="metric-label">Total Return <span>⌁</span></div><strong id="totalReturn">+$3,842.61</strong><div id="totalReturnPercent" class="positive">+17.47%</div></article>
+          <article class="metric-card"><div class="metric-label">Available Cash <span>◉</span></div><strong id="cashBalance">$8,420.00</strong><div class="muted">Available for trading</div></article>
+        </div>
+
+        <div class="dashboard-grid">
+          <article class="panel chart-panel">
+            <div class="panel-head">
+              <div><small>MARKET OVERVIEW</small><div class="stock-title"><div id="selectedStockLogo" class="stock-logo">A</div><div><h2 id="selectedStockName">Apple Inc.</h2><span id="selectedStockSymbol">NASDAQ: AAPL</span></div></div></div>
+              <div class="price-box"><strong id="selectedStockPrice">$229.31</strong><span id="selectedStockChange" class="positive">+3.21 (+1.42%)</span></div>
+            </div>
+            <div class="chart-toolbar">
+              <div class="ranges">
+                <button data-range="1D">1D</button><button data-range="1W">1W</button><button class="active" data-range="1M">1M</button><button data-range="3M">3M</button><button data-range="6M">6M</button><button data-range="1Y">1Y</button>
+              </div>
+              <span id="chartLoading" class="muted">Live-ready</span>
+            </div>
+            <div id="chartContainer" class="chart-container"></div>
+            <div id="chartError" class="chart-error hidden"></div>
+          </article>
+
+          <article class="panel">
+            <div class="panel-head"><div><small>YOUR STOCKS</small><h2>Watchlist</h2></div><button id="viewWatchlist" class="text-btn">View all</button></div>
+            <div id="dashboardWatchlist" class="watchlist-list"></div>
+          </article>
+        </div>
+
+        <article class="panel">
+          <div class="panel-head"><div><small>INVESTMENTS</small><h2>Your Holdings</h2></div><button id="viewPortfolio" class="text-btn">View portfolio</button></div>
+          <div class="table-wrap"><table><thead><tr><th>Asset</th><th>Shares</th><th>Avg. Price</th><th>Current</th><th>Market Value</th><th>Return</th></tr></thead><tbody id="holdingsTableBody"></tbody></table></div>
+        </article>
+
+        <article class="panel">
+          <div class="panel-head"><div><small>LATEST UPDATES</small><h2>Market News</h2></div><button id="viewNews" class="text-btn">View all</button></div>
+          <div id="dashboardNews" class="news-grid"></div>
+        </article>
+      </section>
+
+      <section id="marketsSection" class="page-section">
+        <div class="page-heading"><div><small>MARKETS</small><h1>Market Overview</h1><p>Explore tracked market prices and performance.</p></div></div>
+        <div id="marketMovers" class="market-movers-grid"></div>
+      </section>
+
+      <section id="watchlistSection" class="page-section">
+        <div class="page-heading"><div><small>MY STOCKS</small><h1>Watchlist</h1><p>Your saved stocks persist in local storage.</p></div><button id="watchlistAddButton" class="primary-btn">＋ Add Stock</button></div>
+        <article class="panel"><div id="fullWatchlist" class="watchlist-full"></div></article>
+      </section>
+
+      <section id="portfolioSection" class="page-section">
+        <div class="page-heading"><div><small>MY INVESTMENTS</small><h1>Portfolio</h1><p>Review holdings and simulated investment performance.</p></div><button id="portfolioTradeButton" class="primary-btn">⇄ Trade</button></div>
+        <div class="metrics-grid"><article class="metric-card"><div class="metric-label">Total Value</div><strong id="portfolioTotalValue">$25,842.61</strong></article><article class="metric-card"><div class="metric-label">Invested</div><strong id="portfolioInvested">$22,000.00</strong></article><article class="metric-card"><div class="metric-label">Profit</div><strong id="portfolioProfit" class="positive">+$3,842.61</strong></article><article class="metric-card"><div class="metric-label">Cash</div><strong id="portfolioCash">$8,420.00</strong></article></div>
+        <article class="panel"><div class="table-wrap"><table><thead><tr><th>Asset</th><th>Shares</th><th>Avg. Cost</th><th>Price</th><th>Value</th><th>P/L</th><th>Return</th></tr></thead><tbody id="portfolioTableBody"></tbody></table></div></article>
+      </section>
+
+      <section id="transactionsSection" class="page-section">
+        <div class="page-heading"><div><small>ACTIVITY</small><h1>Transactions</h1><p>Your simulated trading history.</p></div></div>
+        <article class="panel"><div id="transactionsList" class="transactions-list"></div></article>
+      </section>
+
+      <section id="newsSection" class="page-section">
+        <div class="page-heading"><div><small>MARKET INTELLIGENCE</small><h1>Market News</h1><p>Latest tracked market headlines.</p></div><button id="refreshNews" class="secondary-btn">↻ Refresh News</button></div>
+        <article class="panel"><div id="fullNews" class="news-grid"></div></article>
+      </section>
+
+      <section id="settingsSection" class="page-section">
+        <div class="page-heading"><div><small>PREFERENCES</small><h1>Settings</h1><p>Configure your StockFlow experience.</p></div></div>
+        <article class="panel settings-panel">
+          <label class="setting"><span><strong>Dark Mode</strong><small>Use a darker interface.</small></span><input id="settingsThemeToggle" type="checkbox"></label>
+          <label class="setting"><span><strong>Live Price Updates</strong><small>Refresh quotes automatically.</small></span><input id="liveUpdatesToggle" type="checkbox" checked></label>
+          <label class="setting"><span><strong>Notifications</strong><small>Show market update notifications.</small></span><input id="notificationsToggle" type="checkbox" checked></label>
+        </article>
+      </section>
+    </div>
+  </main>
+</div>
+
+<div id="tradeModal" class="modal hidden"><div class="modal-card"><button class="modal-close" id="closeTradeModal">×</button><small>TRADE</small><h2>Buy / Sell Stock</h2><div class="trade-tabs"><button id="buyTab" class="active">Buy</button><button id="sellTab">Sell</button></div><form id="tradeForm"><label>Stock Symbol<input id="tradeSymbol" placeholder="AAPL" required></label><label>Quantity<input id="tradeQuantity" type="number" min="1" step="1" placeholder="10" required></label><div class="trade-summary"><span>Price <b id="tradePrice">$0.00</b></span><span>Total <b id="tradeTotal">$0.00</b></span></div><button id="confirmTrade" class="primary-btn full">Confirm Buy</button></form></div></div>
+
+<div id="stockModal" class="modal hidden"><div class="modal-card"><button class="modal-close" id="closeStockModal">×</button><small>WATCHLIST</small><h2>Add a Stock</h2><form id="addStockForm"><label>Stock Symbol<input id="newStockSymbol" placeholder="AAPL" required></label><button class="primary-btn full">☆ Add to Watchlist</button></form></div></div>
+
+<div id="toast" class="toast"><span id="toastText">Success</span></div>
+
+<script src="js/api.js"></script>
+<script src="js/chart.js"></script>
+<script src="js/watchlist.js"></script>
+<script src="js/portfolio.js"></script>
+<script src="js/news.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
