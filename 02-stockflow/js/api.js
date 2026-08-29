@@ -1,5 +1,5 @@
 window.StockAPI = (() => {
-  const API_BASE = "http://localhost:3000/api";
+  const API_BASE = "https://stockflow-api-lrs8.onrender.com";
   const CONFIG = {
     apiKey: localStorage.getItem("finnhub_api_key") || "",
     base: "https://finnhub.io/api/v1"
