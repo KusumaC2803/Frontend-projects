@@ -1,0 +1,17 @@
+{
+  "name": "thrift-flip-server",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node --watch server.js",
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.6",
+    "dotenv": "^16.6.1",
+    "express": "^4.22.2",
+    "mongoose": "^9.9.4",
+    "razorpay": "^2.9.8"
+  }
+}
