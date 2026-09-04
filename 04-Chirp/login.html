@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>Chirp — Login</title>
+
+  <link
+    rel="stylesheet"
+    href="css/global.css"
+  >
+
+  <link
+    rel="stylesheet"
+    href="css/app.css"
+  >
+
+  <style>
+    body {
+      min-height: 100vh;
+
+      display: flex;
+
+      align-items: center;
+      justify-content: center;
+
+      background: #f5f8fa;
+    }
+
+    .auth-container {
+      width: 100%;
+      max-width: 420px;
+
+      padding: 32px;
+
+      background: #fff;
+
+      border: 1px solid #e6ecf0;
+
+      border-radius: 20px;
+
+      box-shadow:
+        0 8px 30px rgba(15, 20, 25, 0.08);
+    }
+
+    .auth-logo {
+      display: block;
+
+      width: 48px;
+      height: 48px;
+
+      margin: 0 auto 20px;
+    }
+
+    .auth-title {
+      text-align: center;
+
+      margin: 0 0 8px;
+
+      font-size: 28px;
+    }
+
+    .auth-subtitle {
+      text-align: center;
+
+      color: #657786;
+
+      margin-bottom: 28px;
+    }
+
+    .auth-form {
+      display: flex;
+
+      flex-direction: column;
+
+      gap: 16px;
+    }
+
+    .auth-field {
+      display: flex;
+
+      flex-direction: column;
+
+      gap: 6px;
+    }
+
+    .auth-field label {
+      font-weight: 700;
+    }
+
+    .auth-field input {
+      width: 100%;
+
+      box-sizing: border-box;
+
+      padding: 12px 14px;
+
+      border: 1px solid #cfd9de;
+
+      border-radius: 10px;
+
+      outline: none;
+
+      font-size: 16px;
+    }
+
+    .auth-field input:focus {
+      border-color: #1d9bf0;
+
+      box-shadow:
+        0 0 0 2px
+        rgba(29, 155, 240, 0.12);
+    }
+
+    .auth-button {
+      width: 100%;
+
+      border: 0;
+
+      border-radius: 999px;
+
+      padding: 12px 18px;
+
+      background: #1d9bf0;
+
+      color: #fff;
+
+      font-size: 16px;
+
+      font-weight: 700;
+
+      cursor: pointer;
+    }
+
+    .auth-button:hover {
+      background: #1a8cd8;
+    }
+
+    .auth-button:disabled {
+      opacity: 0.6;
+
+      cursor: not-allowed;
+    }
+
+    .auth-message {
+      min-height: 20px;
+
+      margin-top: 14px;
+
+      text-align: center;
+
+      font-size: 14px;
+
+      color: #e0245e;
+    }
+
+    .auth-footer {
+      margin-top: 22px;
+
+      text-align: center;
+
+      color: #657786;
+    }
+
+    .auth-footer a {
+      color: #1d9bf0;
+
+      font-weight: 700;
+
+      text-decoration: none;
+    }
+
+    .auth-footer a:hover {
+      text-decoration: underline;
+    }
+  </style>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <script defer src="js/supabase.js"></script>
+
+  <script defer src="js/auth.js"></script>
+
+</head>
+
+
+<body>
+
+  <main class="auth-container">
+
+    <img
+      src="svg/twitter.svg"
+      class="auth-logo"
+      alt="Chirp"
+    >
+
+    <h1 class="auth-title">
+      Welcome back
+    </h1>
+
+    <p class="auth-subtitle">
+      Log in to continue to Chirp.
+    </p>
+
+
+    <form
+      id="loginForm"
+      class="auth-form"
+    >
+
+      <div class="auth-field">
+
+        <label for="loginEmail">
+          Email
+        </label>
+
+        <input
+          id="loginEmail"
+          name="email"
+          type="email"
+          placeholder="you@example.com"
+          autocomplete="email"
+          required
+        >
+
+      </div>
+
+
+      <div class="auth-field">
+
+        <label for="loginPassword">
+          Password
+        </label>
+
+        <input
+          id="loginPassword"
+          name="password"
+          type="password"
+          placeholder="Enter your password"
+          autocomplete="current-password"
+          required
+        >
+
+      </div>
+
+
+      <button
+        id="loginButton"
+        class="auth-button"
+        type="submit"
+      >
+        Log in
+      </button>
+
+    </form>
+
+
+    <div
+      id="authMessage"
+      class="auth-message"
+      role="alert"
+    ></div>
+
+
+    <div class="auth-footer">
+
+      Don't have an account?
+
+      <a href="signup.html">
+        Sign up
+      </a>
+
+    </div>
+
+  </main>
+
+</body>
+
+</html>

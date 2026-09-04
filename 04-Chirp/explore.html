@@ -1,0 +1,1767 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <meta
+    name="description"
+    content="Explore Chirp posts and topics"
+  >
+
+  <title>Chirp — Explore</title>
+
+
+  <!-- =====================================================
+       STYLES
+       ===================================================== -->
+
+  <link rel="stylesheet" href="css/global.css">
+  <link rel="stylesheet" href="css/blocks/layout.css">
+  <link rel="stylesheet" href="css/blocks/brand.css">
+  <link rel="stylesheet" href="css/blocks/sidebar-menu.css">
+  <link rel="stylesheet" href="css/blocks/trends-for-you.css">
+  <link rel="stylesheet" href="css/blocks/tweet.css">
+  <link rel="stylesheet" href="css/blocks/who-to-follow.css">
+  <link rel="stylesheet" href="css/app.css">
+
+</head>
+
+
+<body>
+
+  <div class="app-shell">
+
+
+    <!-- =====================================================
+         TOP BAR
+         ===================================================== -->
+
+    <header class="topbar">
+
+      <button
+        class="menu-toggle"
+        id="menuToggle"
+        type="button"
+        aria-label="Open sidebar"
+        aria-expanded="false"
+      >
+        ☰
+      </button>
+
+
+      <img
+        src="svg/twitter.svg"
+        class="mobile-logo"
+        alt="Chirp"
+      >
+
+
+      <strong>
+        Explore
+      </strong>
+
+
+      <button
+        class="logout-btn"
+        id="logoutBtn"
+        type="button"
+      >
+        Logout
+      </button>
+
+    </header>
+
+
+    <!-- =====================================================
+         SIDEBAR OVERLAY
+         ===================================================== -->
+
+    <div
+      class="sidebar-overlay hidden"
+      id="sidebarOverlay"
+      aria-hidden="true"
+    ></div>
+
+
+    <!-- =====================================================
+         MAIN LAYOUT
+         ===================================================== -->
+
+    <div class="layout">
+
+
+      <!-- ===================================================
+           LEFT SIDEBAR
+           =================================================== -->
+
+      <aside class="layout__left-sidebar">
+
+        <img
+          src="svg/twitter.svg"
+          class="brand"
+          alt="Chirp"
+        >
+
+
+        <nav
+          class="sidebar-menu"
+          aria-label="Main navigation"
+        >
+
+
+          <!-- HOME -->
+
+          <a
+            href="index.html"
+            class="sidebar-menu__item"
+          >
+
+            <img
+              src="svg/home.svg"
+              class="sidebar-menu__item-icon"
+              alt=""
+            >
+
+            <span>
+              Home
+            </span>
+
+          </a>
+
+
+          <!-- EXPLORE -->
+
+          <a
+            href="explore.html"
+            class="sidebar-menu__item sidebar-menu__item--active"
+          >
+
+            <img
+              src="svg/explore.svg"
+              class="sidebar-menu__item-icon"
+              alt=""
+            >
+
+            <span>
+              Explore
+            </span>
+
+          </a>
+
+
+          <!-- NOTIFICATIONS -->
+
+          <a
+            href="notifications.html"
+            class="sidebar-menu__item"
+          >
+
+            <img
+              src="svg/notifications.svg"
+              class="sidebar-menu__item-icon"
+              alt=""
+            >
+
+            <span>
+              Notifications
+            </span>
+
+          </a>
+
+
+          <!-- MESSAGES -->
+
+          <a
+            href="messages.html"
+            class="sidebar-menu__item"
+          >
+
+            <img
+              src="svg/messages.svg"
+              class="sidebar-menu__item-icon"
+              alt=""
+            >
+
+            <span>
+              Messages
+            </span>
+
+          </a>
+
+
+          <!-- PROFILE -->
+
+          <a
+            href="profile.html"
+            class="sidebar-menu__item"
+          >
+
+            <img
+              src="svg/profile.svg"
+              class="sidebar-menu__item-icon"
+              alt=""
+            >
+
+            <span>
+              Profile
+            </span>
+
+          </a>
+
+
+          <!-- MORE -->
+
+          <a
+            href="more.html"
+            class="sidebar-menu__item"
+          >
+
+            <img
+              src="svg/more.svg"
+              class="sidebar-menu__item-icon"
+              alt=""
+            >
+
+            <span>
+              More
+            </span>
+
+          </a>
+
+        </nav>
+
+      </aside>
+
+
+      <!-- ===================================================
+           CENTER / MAIN CONTENT
+           =================================================== -->
+
+      <main class="layout__main">
+
+
+        <!-- =================================================
+             SEARCH BOX
+             ================================================= -->
+
+        <section
+          style="
+            padding:18px;
+            border-bottom:1px solid #e1e8ed;
+            background:#fff;
+          "
+        >
+
+          <div
+            style="
+              position:relative;
+            "
+          >
+
+            <span
+              style="
+                position:absolute;
+                left:15px;
+                top:50%;
+                transform:translateY(-50%);
+                font-size:18px;
+                pointer-events:none;
+              "
+            >
+              🔎
+            </span>
+
+
+            <input
+              id="searchInput"
+              type="search"
+              placeholder="Search Chirp"
+              autocomplete="off"
+              aria-label="Search Chirp"
+              style="
+                width:100%;
+                box-sizing:border-box;
+                padding:13px 45px 13px 44px;
+                border:1px solid #cfd9de;
+                border-radius:999px;
+                font-size:15px;
+                outline:none;
+                background:#f5f8fa;
+              "
+            >
+
+
+            <!-- CLEAR BUTTON -->
+
+            <button
+              id="clearSearch"
+              type="button"
+              aria-label="Clear search"
+              style="
+                display:none;
+                position:absolute;
+                right:12px;
+                top:50%;
+                transform:translateY(-50%);
+                border:0;
+                background:transparent;
+                cursor:pointer;
+                font-size:18px;
+                color:#657786;
+              "
+            >
+              ×
+            </button>
+
+          </div>
+
+        </section>
+
+
+        <!-- =================================================
+             SEARCH RESULTS
+             ================================================= -->
+
+        <section
+          id="searchResults"
+          aria-live="polite"
+        >
+
+          <div
+            style="
+              text-align:center;
+              padding:55px 20px;
+              color:#657786;
+            "
+          >
+
+            <div
+              style="
+                font-size:42px;
+                margin-bottom:12px;
+              "
+            >
+              🔎
+            </div>
+
+
+            <h3
+              style="
+                margin:0 0 8px;
+              "
+            >
+              Explore Chirp
+            </h3>
+
+
+            <p
+              style="
+                margin:0;
+              "
+            >
+              Search for posts, topics or users.
+            </p>
+
+          </div>
+
+        </section>
+
+
+        <!-- =================================================
+             TRENDING SECTION
+             ================================================= -->
+
+        <section
+          style="
+            border-top:1px solid #e1e8ed;
+          "
+        >
+
+          <div
+            style="
+              padding:18px;
+              font-size:20px;
+              font-weight:700;
+            "
+          >
+            What's happening
+          </div>
+
+
+          <!-- AI -->
+
+          <div
+            class="explore-trend"
+            data-search="#AI"
+            style="
+              padding:18px;
+              border-top:1px solid #e1e8ed;
+              cursor:pointer;
+            "
+          >
+
+            <div
+              style="
+                color:#657786;
+                font-size:13px;
+              "
+            >
+              Trending in India
+            </div>
+
+
+            <strong>
+              #AI
+            </strong>
+
+
+            <div
+              style="
+                color:#657786;
+                font-size:13px;
+              "
+            >
+              155k Posts
+            </div>
+
+          </div>
+
+
+          <!-- WEB DEVELOPMENT -->
+
+          <div
+            class="explore-trend"
+            data-search="#WebDevelopment"
+            style="
+              padding:18px;
+              border-top:1px solid #e1e8ed;
+              cursor:pointer;
+            "
+          >
+
+            <div
+              style="
+                color:#657786;
+                font-size:13px;
+              "
+            >
+              Technology · Trending
+            </div>
+
+
+            <strong>
+              #WebDevelopment
+            </strong>
+
+          </div>
+
+
+          <!-- SUPABASE -->
+
+          <div
+            class="explore-trend"
+            data-search="Supabase"
+            style="
+              padding:18px;
+              border-top:1px solid #e1e8ed;
+              cursor:pointer;
+            "
+          >
+
+            <div
+              style="
+                color:#657786;
+                font-size:13px;
+              "
+            >
+              Trending
+            </div>
+
+
+            <strong>
+              #Supabase
+            </strong>
+
+          </div>
+
+
+          <!-- OPEN SOURCE -->
+
+          <div
+            class="explore-trend"
+            data-search="OpenSource"
+            style="
+              padding:18px;
+              border-top:1px solid #e1e8ed;
+              cursor:pointer;
+            "
+          >
+
+            <div
+              style="
+                color:#657786;
+                font-size:13px;
+              "
+            >
+              Trending
+            </div>
+
+
+            <strong>
+              #OpenSource
+            </strong>
+
+          </div>
+
+        </section>
+
+      </main>
+
+
+      <!-- ===================================================
+           RIGHT SIDEBAR
+           =================================================== -->
+
+      <aside class="layout__right-sidebar-container">
+
+        <div class="layout__right-sidebar">
+
+
+          <!-- =================================================
+               TRENDS
+               ================================================= -->
+
+          <div class="trends-for-you">
+
+            <div class="trends-for-you__block">
+
+              <div class="trends-for-you__heading">
+                Trends for you
+              </div>
+
+            </div>
+
+
+            <div class="trends-for-you__block">
+
+              <div class="trends-for-you__meta-information">
+                Trending in India
+              </div>
+
+
+              <div class="trends-for-you__trend-name">
+                #AI
+              </div>
+
+
+              <div class="trends-for-you__meta-information">
+                155k Posts
+              </div>
+
+            </div>
+
+
+            <div class="trends-for-you__block">
+
+              <div class="trends-for-you__meta-information">
+                Technology · Trending
+              </div>
+
+
+              <div class="trends-for-you__trend-name">
+                #WebDevelopment
+              </div>
+
+            </div>
+
+
+            <div class="trends-for-you__block">
+
+              <div class="trends-for-you__meta-information">
+                Trending
+              </div>
+
+
+              <div class="trends-for-you__trend-name">
+                #Supabase
+              </div>
+
+            </div>
+
+
+            <div class="trends-for-you__block">
+
+              <div class="trends-for-you__meta-information">
+                Trending
+              </div>
+
+
+              <div class="trends-for-you__trend-name">
+                #OpenSource
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <!-- =================================================
+               WHO TO FOLLOW
+               ================================================= -->
+
+          <div class="who-to-follow">
+
+            <div class="who-to-follow__block">
+
+              <div class="who-to-follow__heading">
+                Who to follow
+              </div>
+
+            </div>
+
+
+            <!-- PERSON 1 -->
+
+            <div class="who-to-follow__block">
+
+              <img
+                class="who-to-follow__author-logo"
+                src="images/profile-image-1.jpg"
+                alt=""
+              >
+
+
+              <div class="who-to-follow__content">
+
+                <div>
+
+                  <div class="who-to-follow__author-name">
+                    Becki (& Chris)
+                  </div>
+
+
+                  <div class="who-to-follow__author-slug">
+                    @beckiandchris
+                  </div>
+
+                </div>
+
+
+                <button
+                  class="who-to-follow__button"
+                  type="button"
+                >
+                  Follow
+                </button>
+
+              </div>
+
+            </div>
+
+
+            <!-- PERSON 2 -->
+
+            <div class="who-to-follow__block">
+
+              <img
+                class="who-to-follow__author-logo"
+                src="images/profile-image-2.png"
+                alt=""
+              >
+
+
+              <div class="who-to-follow__content">
+
+                <div>
+
+                  <div class="who-to-follow__author-name">
+                    Elixir Digest
+                  </div>
+
+
+                  <div class="who-to-follow__author-slug">
+                    @elixirdigest
+                  </div>
+
+                </div>
+
+
+                <button
+                  class="who-to-follow__button"
+                  type="button"
+                >
+                  Follow
+                </button>
+
+              </div>
+
+            </div>
+
+
+            <!-- PERSON 3 -->
+
+            <div class="who-to-follow__block">
+
+              <img
+                class="who-to-follow__author-logo"
+                src="images/profile-image-3.jpg"
+                alt=""
+              >
+
+
+              <div class="who-to-follow__content">
+
+                <div>
+
+                  <div class="who-to-follow__author-name">
+                    Chris Martin
+                  </div>
+
+
+                  <div class="who-to-follow__author-slug">
+                    @chris_martin
+                  </div>
+
+                </div>
+
+
+                <button
+                  class="who-to-follow__button"
+                  type="button"
+                >
+                  Follow
+                </button>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </aside>
+
+    </div>
+
+
+    <!-- =====================================================
+         TOAST
+         ===================================================== -->
+
+    <div
+      id="toast"
+      class="toast hidden"
+      role="status"
+      aria-live="polite"
+    ></div>
+
+  </div>
+
+
+  <!-- =====================================================
+       SUPABASE CDN
+       ===================================================== -->
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+
+  <!-- =====================================================
+       SUPABASE CONFIGURATION
+       ===================================================== -->
+
+  <script src="js/supabase.js"></script>
+
+
+  <!-- =====================================================
+       EXPLORE APPLICATION
+       ===================================================== -->
+
+  <script>
+
+    document.addEventListener(
+      "DOMContentLoaded",
+      async function () {
+
+
+        /* =================================================
+           SUPABASE
+           ================================================= */
+
+        const exploreSupabase =
+          window.appSupabase;
+
+
+        if (!exploreSupabase) {
+
+          console.error(
+            "Supabase client is missing."
+          );
+
+          return;
+
+        }
+
+
+        /* =================================================
+           ELEMENTS
+           ================================================= */
+
+        const searchInput =
+          document.getElementById(
+            "searchInput"
+          );
+
+
+        const searchResults =
+          document.getElementById(
+            "searchResults"
+          );
+
+
+        const clearSearch =
+          document.getElementById(
+            "clearSearch"
+          );
+
+
+        const logoutBtn =
+          document.getElementById(
+            "logoutBtn"
+          );
+
+
+        let searchTimer = null;
+
+
+        /* =================================================
+           AUTHENTICATION
+           ================================================= */
+
+        try {
+
+          const {
+            data,
+            error
+          } =
+            await exploreSupabase
+              .auth
+              .getSession();
+
+
+          if (error) {
+
+            throw error;
+
+          }
+
+
+          if (!data?.session) {
+
+            window.location.href =
+              "login.html";
+
+            return;
+
+          }
+
+        } catch (error) {
+
+          console.error(
+            "EXPLORE AUTH ERROR:",
+            error
+          );
+
+          return;
+
+        }
+
+
+        /* =================================================
+           ESCAPE HTML
+           ================================================= */
+
+        function escapeHtml(value) {
+
+          return String(
+            value ?? ""
+          ).replace(
+            /[&<>"']/g,
+            function (char) {
+
+              return {
+                "&": "&amp;",
+                "<": "&lt;",
+                ">": "&gt;",
+                '"': "&quot;",
+                "'": "&#039;"
+              }[char];
+
+            }
+          );
+
+        }
+
+
+        /* =================================================
+           TIME AGO
+           ================================================= */
+
+        function timeAgo(value) {
+
+          const timestamp =
+            new Date(value).getTime();
+
+
+          if (
+            !Number.isFinite(
+              timestamp
+            )
+          ) {
+
+            return "";
+
+          }
+
+
+          const seconds =
+            Math.max(
+              1,
+              Math.floor(
+                (
+                  Date.now() -
+                  timestamp
+                ) / 1000
+              )
+            );
+
+
+          if (seconds < 60) {
+
+            return `${seconds}s`;
+
+          }
+
+
+          const minutes =
+            Math.floor(
+              seconds / 60
+            );
+
+
+          if (minutes < 60) {
+
+            return `${minutes}m`;
+
+          }
+
+
+          const hours =
+            Math.floor(
+              minutes / 60
+            );
+
+
+          if (hours < 24) {
+
+            return `${hours}h`;
+
+          }
+
+
+          const days =
+            Math.floor(
+              hours / 24
+            );
+
+
+          if (days < 30) {
+
+            return `${days}d`;
+
+          }
+
+
+          return new Date(
+            value
+          ).toLocaleDateString();
+
+        }
+
+
+        /* =================================================
+           EMPTY STATE
+           ================================================= */
+
+        function showExploreStart() {
+
+          searchResults.innerHTML = `
+
+            <div
+              style="
+                text-align:center;
+                padding:55px 20px;
+                color:#657786;
+              "
+            >
+
+              <div
+                style="
+                  font-size:42px;
+                  margin-bottom:12px;
+                "
+              >
+                🔎
+              </div>
+
+
+              <h3
+                style="
+                  margin:0 0 8px;
+                "
+              >
+                Explore Chirp
+              </h3>
+
+
+              <p
+                style="
+                  margin:0;
+                "
+              >
+                Search for posts, topics or users.
+              </p>
+
+            </div>
+
+          `;
+
+        }
+
+
+        /* =================================================
+           SEARCHING STATE
+           ================================================= */
+
+        function showSearching() {
+
+          searchResults.innerHTML = `
+
+            <div
+              style="
+                text-align:center;
+                padding:45px 20px;
+                color:#657786;
+              "
+            >
+
+              <div
+                style="
+                  font-size:30px;
+                  margin-bottom:10px;
+                "
+              >
+                🔎
+              </div>
+
+              Searching...
+
+            </div>
+
+          `;
+
+        }
+
+
+        /* =================================================
+           NO RESULTS
+           ================================================= */
+
+        function showNoResults(term) {
+
+          searchResults.innerHTML = `
+
+            <div
+              style="
+                text-align:center;
+                padding:50px 20px;
+                color:#657786;
+              "
+            >
+
+              <div
+                style="
+                  font-size:38px;
+                  margin-bottom:10px;
+                "
+              >
+                🔎
+              </div>
+
+
+              <h3
+                style="
+                  margin:0 0 8px;
+                "
+              >
+                No results found
+              </h3>
+
+
+              <p>
+                Nothing matched
+                "<strong>
+                  ${escapeHtml(term)}
+                </strong>"
+              </p>
+
+            </div>
+
+          `;
+
+        }
+
+
+        /* =================================================
+           RENDER RESULTS
+           ================================================= */
+
+        function renderResults(
+          posts,
+          profiles
+        ) {
+
+
+          if (
+            !posts ||
+            posts.length === 0
+          ) {
+
+            showNoResults(
+              searchInput.value.trim()
+            );
+
+            return;
+
+          }
+
+
+          searchResults.innerHTML =
+            posts
+              .map(
+                function (post) {
+
+
+                  const profile =
+                    profiles.get(
+                      post.user_id
+                    ) || {};
+
+
+                  const avatar =
+                    profile.avatar_url ||
+                    "images/profile-image-1.jpg";
+
+
+                  const name =
+                    profile.name ||
+                    "User";
+
+
+                  const handle =
+                    String(
+                      profile.handle ||
+                      "user"
+                    ).replace(
+                      /^@/,
+                      ""
+                    );
+
+
+                  const content =
+                    post.content ||
+                    "";
+
+
+                  const image =
+                    post.image_url
+                      ? `
+
+                        <img
+                          src="${escapeHtml(
+                            post.image_url
+                          )}"
+                          alt="Post image"
+                          loading="lazy"
+                          style="
+                            width:100%;
+                            max-height:420px;
+                            object-fit:cover;
+                            border-radius:14px;
+                            margin-top:14px;
+                          "
+                        >
+
+                      `
+                      : "";
+
+
+                  return `
+
+                    <article
+                      class="explore-post"
+                      style="
+                        padding:20px;
+                        border-bottom:1px solid #e1e8ed;
+                        background:#fff;
+                      "
+                    >
+
+
+                      <!-- AUTHOR -->
+
+                      <div
+                        style="
+                          display:flex;
+                          gap:10px;
+                          align-items:center;
+                        "
+                      >
+
+                        <img
+                          src="${escapeHtml(
+                            avatar
+                          )}"
+                          alt=""
+                          loading="lazy"
+                          style="
+                            width:46px;
+                            height:46px;
+                            border-radius:50%;
+                            object-fit:cover;
+                          "
+                        >
+
+
+                        <div>
+
+                          <strong>
+                            ${escapeHtml(
+                              name
+                            )}
+                          </strong>
+
+
+                          <div
+                            style="
+                              color:#657786;
+                              font-size:14px;
+                              margin-top:2px;
+                            "
+                          >
+
+                            @${escapeHtml(
+                              handle
+                            )}
+
+                            ·
+
+                            ${timeAgo(
+                              post.created_at
+                            )}
+
+                          </div>
+
+                        </div>
+
+                      </div>
+
+
+                      <!-- CONTENT -->
+
+                      <div
+                        style="
+                          margin-top:14px;
+                          white-space:pre-wrap;
+                          line-height:1.55;
+                          font-size:15px;
+                        "
+                      >
+                        ${escapeHtml(
+                          content
+                        )}
+                      </div>
+
+
+                      <!-- IMAGE -->
+
+                      ${image}
+
+
+                      <!-- ACTIONS -->
+
+                      <div
+                        style="
+                          display:flex;
+                          gap:30px;
+                          margin-top:15px;
+                          color:#657786;
+                          font-size:14px;
+                        "
+                      >
+
+                        <span>
+                          💬
+                        </span>
+
+                        <span>
+                          🔁
+                        </span>
+
+                        <span>
+                          ♡
+                        </span>
+
+                      </div>
+
+                    </article>
+
+                  `;
+
+                }
+              )
+              .join("");
+
+        }
+
+
+        /* =================================================
+           SEARCH POSTS
+           ================================================= */
+
+        async function searchPosts(
+          term
+        ) {
+
+
+          const cleanTerm =
+            term.trim();
+
+
+          if (!cleanTerm) {
+
+            showExploreStart();
+
+            return;
+
+          }
+
+
+          showSearching();
+
+
+          try {
+
+
+            /* ---------------------------------------------
+               SEARCH POSTS ONLY
+               --------------------------------------------- */
+
+            const {
+              data: posts,
+              error: postsError
+            } =
+              await exploreSupabase
+                .from("posts")
+                .select(
+                  "id,user_id,content,image_url,created_at"
+                )
+                .ilike(
+                  "content",
+                  `%${cleanTerm}%`
+                )
+                .order(
+                  "created_at",
+                  {
+                    ascending:false
+                  }
+                )
+                .limit(30);
+
+
+            if (postsError) {
+
+              throw postsError;
+
+            }
+
+
+            /* ---------------------------------------------
+               GET UNIQUE USER IDS
+               --------------------------------------------- */
+
+            const userIds =
+              [
+                ...new Set(
+                  (posts || [])
+                    .map(
+                      post =>
+                        post.user_id
+                    )
+                    .filter(Boolean)
+                )
+              ];
+
+
+            /* ---------------------------------------------
+               LOAD PROFILES
+               --------------------------------------------- */
+
+            const profiles =
+              new Map();
+
+
+            if (
+              userIds.length > 0
+            ) {
+
+
+              const {
+                data: profileRows,
+                error: profileError
+              } =
+                await exploreSupabase
+                  .from("profiles")
+                  .select(
+                    "id,name,handle,avatar_url"
+                  )
+                  .in(
+                    "id",
+                    userIds
+                  );
+
+
+              if (profileError) {
+
+                console.warn(
+                  "PROFILE SEARCH WARNING:",
+                  profileError
+                );
+
+              } else {
+
+                (
+                  profileRows || []
+                ).forEach(
+                  function (profile) {
+
+                    profiles.set(
+                      profile.id,
+                      profile
+                    );
+
+                  }
+                );
+
+              }
+
+            }
+
+
+            /* ---------------------------------------------
+               DISPLAY
+               --------------------------------------------- */
+
+            renderResults(
+              posts || [],
+              profiles
+            );
+
+
+          } catch (error) {
+
+
+            console.error(
+              "EXPLORE SEARCH ERROR:",
+              error
+            );
+
+
+            searchResults.innerHTML = `
+
+              <div
+                style="
+                  text-align:center;
+                  padding:45px 20px;
+                  color:#e0245e;
+                "
+              >
+
+                <div
+                  style="
+                    font-size:38px;
+                    margin-bottom:10px;
+                  "
+                >
+                  ⚠️
+                </div>
+
+
+                <h3>
+                  Search failed
+                </h3>
+
+
+                <p>
+                  ${escapeHtml(
+                    error.message ||
+                    "Unable to search right now."
+                  )}
+                </p>
+
+              </div>
+
+            `;
+
+          }
+
+        }
+
+
+        /* =================================================
+           SEARCH INPUT
+           ================================================= */
+
+        searchInput.addEventListener(
+          "input",
+          function () {
+
+
+            const value =
+              searchInput.value.trim();
+
+
+            clearSearch.style.display =
+              value
+                ? "block"
+                : "none";
+
+
+            clearTimeout(
+              searchTimer
+            );
+
+
+            searchTimer =
+              setTimeout(
+                function () {
+
+                  searchPosts(
+                    value
+                  );
+
+                },
+                350
+              );
+
+          }
+        );
+
+
+        /* =================================================
+           CLEAR SEARCH
+           ================================================= */
+
+        clearSearch.addEventListener(
+          "click",
+          function () {
+
+            searchInput.value =
+              "";
+
+
+            clearSearch.style.display =
+              "none";
+
+
+            showExploreStart();
+
+
+            searchInput.focus();
+
+          }
+        );
+
+
+        /* =================================================
+           TREND CLICK
+           ================================================= */
+
+        document
+          .querySelectorAll(
+            ".explore-trend"
+          )
+          .forEach(
+            function (trend) {
+
+              trend.addEventListener(
+                "click",
+                function () {
+
+                  const search =
+                    trend.dataset.search ||
+                    "";
+
+
+                  searchInput.value =
+                    search;
+
+
+                  clearSearch.style.display =
+                    "block";
+
+
+                  searchPosts(
+                    search
+                  );
+
+                }
+              );
+
+            }
+          );
+
+
+        /* =================================================
+           LOGOUT
+           ================================================= */
+
+        logoutBtn.addEventListener(
+          "click",
+          async function () {
+
+            try {
+
+              await exploreSupabase
+                .auth
+                .signOut();
+
+            } catch (error) {
+
+              console.error(
+                "LOGOUT ERROR:",
+                error
+              );
+
+            }
+
+
+            window.location.href =
+              "login.html";
+
+          }
+        );
+
+
+        /* =================================================
+           MOBILE SIDEBAR
+           ================================================= */
+
+        const menuToggle =
+          document.getElementById(
+            "menuToggle"
+          );
+
+
+        const sidebarOverlay =
+          document.getElementById(
+            "sidebarOverlay"
+          );
+
+
+        const sidebar =
+          document.querySelector(
+            ".layout__left-sidebar"
+          );
+
+
+        if (
+          menuToggle &&
+          sidebar &&
+          sidebarOverlay
+        ) {
+
+
+          menuToggle.addEventListener(
+            "click",
+            function () {
+
+
+              const open =
+                sidebar.classList.toggle(
+                  "open"
+                );
+
+
+              sidebarOverlay.classList.toggle(
+                "hidden"
+              );
+
+
+              menuToggle.setAttribute(
+                "aria-expanded",
+                String(open)
+              );
+
+            }
+          );
+
+
+          sidebarOverlay.addEventListener(
+            "click",
+            function () {
+
+
+              sidebar.classList.remove(
+                "open"
+              );
+
+
+              sidebarOverlay.classList.add(
+                "hidden"
+              );
+
+
+              menuToggle.setAttribute(
+                "aria-expanded",
+                "false"
+              );
+
+            }
+          );
+
+        }
+
+
+        /* =================================================
+           READY
+           ================================================= */
+
+        console.log(
+          "Chirp Explore initialized successfully."
+        );
+
+      }
+    );
+
+  </script>
+
+</body>
+
+</html>

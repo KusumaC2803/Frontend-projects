@@ -1,0 +1,10 @@
+{
+  "name": "chirp-twitter-clone",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Responsive Twitter/X-style social feed with Supabase-ready architecture",
+  "scripts": {
+    "start": "npx serve .",
+    "dev": "npx serve ."
+  }
+}

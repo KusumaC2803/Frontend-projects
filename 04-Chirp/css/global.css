@@ -1,0 +1,13 @@
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; font-family: Arial, Helvetica, sans-serif; color: #0f1419; background: #fff; }
+button, input, textarea { font: inherit; }
+button { cursor: pointer; }
+a { color: inherit; }
+.hidden { display: none !important; }
+.muted { color: #657786; }
+.app-shell { min-height: 100vh; }
+.toast {
+  position: fixed; right: 24px; bottom: 24px; z-index: 50;
+  background: #0f1419; color: #fff; padding: 12px 16px; border-radius: 12px;
+  box-shadow: 0 8px 30px rgba(0,0,0,.18);
+}

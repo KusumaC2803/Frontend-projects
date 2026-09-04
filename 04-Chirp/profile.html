@@ -1,0 +1,1947 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <meta
+    name="description"
+    content="Chirp Profile"
+  >
+
+  <title>Chirp — Profile</title>
+
+  <!-- =====================================================
+       STYLES
+       ===================================================== -->
+
+  <link rel="stylesheet" href="css/global.css">
+  <link rel="stylesheet" href="css/blocks/layout.css">
+  <link rel="stylesheet" href="css/blocks/brand.css">
+  <link rel="stylesheet" href="css/blocks/sidebar-menu.css">
+  <link rel="stylesheet" href="css/blocks/trends-for-you.css">
+  <link rel="stylesheet" href="css/blocks/tweet.css">
+  <link rel="stylesheet" href="css/blocks/who-to-follow.css">
+  <link rel="stylesheet" href="css/app.css">
+  <link rel="stylesheet" href="css/auth.css">
+  <link rel="stylesheet" href="css/profile.css">
+
+</head>
+
+
+<body>
+
+  <div class="app-shell">
+
+    <!-- ===================================================
+         TOP BAR
+         =================================================== -->
+
+    <header class="topbar">
+
+      <button
+        class="menu-toggle"
+        id="menuToggle"
+        type="button"
+        aria-label="Open sidebar"
+        aria-expanded="false"
+      >
+        ☰
+      </button>
+
+      <img
+        src="svg/twitter.svg"
+        class="mobile-logo"
+        alt="Chirp Logo"
+      >
+
+      <strong>Profile</strong>
+
+      <button
+        class="logout-btn"
+        id="logoutBtn"
+        type="button"
+      >
+        Logout
+      </button>
+
+    </header>
+
+
+    <!-- ===================================================
+         SIDEBAR OVERLAY
+         =================================================== -->
+
+    <div
+      class="sidebar-overlay hidden"
+      id="sidebarOverlay"
+      aria-hidden="true"
+    ></div>
+
+
+    <!-- ===================================================
+         MAIN LAYOUT
+         =================================================== -->
+
+    <div class="layout">
+
+
+      <!-- =================================================
+           LEFT SIDEBAR
+           ================================================= -->
+
+      <aside class="layout__left-sidebar">
+
+        <img
+          src="svg/twitter.svg"
+          class="brand"
+          alt="Chirp Logo"
+        >
+
+        <nav
+          class="sidebar-menu"
+          aria-label="Main navigation"
+        >
+
+          <!-- Home -->
+
+          <a
+            href="index.html"
+            class="sidebar-menu__item"
+          >
+            <img
+              src="svg/home.svg"
+              class="sidebar-menu__item-icon"
+              alt=""
+            >
+            <span>Home</span>
+          </a>
+
+
+          <!-- Explore -->
+
+          <a
+            href="explore.html"
+            class="sidebar-menu__item"
+          >
+            <img
+              src="svg/explore.svg"
+              class="sidebar-menu__item-icon"
+              alt=""
+            >
+            <span>Explore</span>
+          </a>
+
+
+          <!-- Notifications -->
+
+          <a
+            href="notifications.html"
+            class="sidebar-menu__item"
+          >
+            <img
+              src="svg/notifications.svg"
+              class="sidebar-menu__item-icon"
+              alt=""
+            >
+            <span>Notifications</span>
+          </a>
+
+
+          <!-- Messages -->
+
+          <a
+            href="messages.html"
+            class="sidebar-menu__item"
+          >
+            <img
+              src="svg/messages.svg"
+              class="sidebar-menu__item-icon"
+              alt=""
+            >
+            <span>Messages</span>
+          </a>
+
+
+          <!-- Profile -->
+
+          <a
+            href="profile.html"
+            class="sidebar-menu__item sidebar-menu__item--active"
+          >
+            <img
+              src="svg/profile.svg"
+              class="sidebar-menu__item-icon"
+              alt=""
+            >
+            <span>Profile</span>
+          </a>
+
+
+          <!-- More -->
+
+          <a
+            href="more.html"
+            class="sidebar-menu__item"
+          >
+            <img
+              src="svg/more.svg"
+              class="sidebar-menu__item-icon"
+              alt=""
+            >
+            <span>More</span>
+          </a>
+
+        </nav>
+
+      </aside>
+
+
+      <!-- =================================================
+           PROFILE CONTENT
+           ================================================= -->
+
+      <main class="layout__main">
+
+
+        <!-- =================================================
+             PROFILE HEADER
+             ================================================= -->
+
+        <section class="profile-card">
+
+          <div class="profile-cover">
+
+            <div class="profile-cover-content">
+              <span>CHIRP PROFILE</span>
+              <small>
+                AI/ML • FULL STACK • SOFTWARE DEVELOPMENT
+              </small>
+            </div>
+
+          </div>
+
+
+          <div class="profile-row">
+
+            <img
+              id="profileAvatar"
+              src="images/profile-image-1.jpg"
+              alt="Profile picture"
+            >
+
+            <button
+              id="editProfileBtn"
+              class="secondary-btn"
+              type="button"
+            >
+              Edit profile
+            </button>
+
+          </div>
+
+
+          <h2
+            id="profileName"
+            class="profile-name"
+          >
+            Loading...
+          </h2>
+
+
+          <div
+            id="profileHandle"
+            class="muted"
+          >
+            @loading
+          </div>
+
+
+          <p
+            id="profileBio"
+            class="muted profile-bio"
+          >
+            Welcome to my Chirp profile.
+          </p>
+
+
+          <div
+            id="profileEmail"
+            class="muted profile-email"
+          ></div>
+
+        </section>
+
+
+        <!-- =================================================
+             EDIT PROFILE PANEL
+             ================================================= -->
+
+        <section
+          id="editProfilePanel"
+          class="compose hidden edit-profile-panel"
+        >
+
+          <h3>Edit Profile</h3>
+
+
+          <form id="profileForm">
+
+            <input
+              id="editName"
+              type="text"
+              placeholder="Your name"
+              maxlength="80"
+              autocomplete="name"
+              required
+            >
+
+
+            <input
+              id="editHandle"
+              type="text"
+              placeholder="Username"
+              maxlength="30"
+              autocomplete="username"
+              required
+            >
+
+
+            <textarea
+              id="editBio"
+              placeholder="Write something about yourself..."
+              maxlength="160"
+              rows="4"
+            ></textarea>
+
+
+            <div class="profile-form-actions">
+
+              <button
+                class="primary-btn"
+                id="saveProfileBtn"
+                type="submit"
+              >
+                Save changes
+              </button>
+
+
+              <button
+                class="secondary-btn"
+                id="cancelEditBtn"
+                type="button"
+              >
+                Cancel
+              </button>
+
+            </div>
+
+          </form>
+
+
+          <div
+            id="profileMessage"
+            class="auth-message profile-message"
+          ></div>
+
+        </section>
+
+
+        <!-- =================================================
+             PROFILE TABS
+             ================================================= -->
+
+        <div class="profile-tabs">
+
+          <div class="profile-tab active">
+            Posts
+          </div>
+
+        </div>
+
+
+        <!-- =================================================
+             USER POSTS
+             ================================================= -->
+
+        <section
+          id="profilePosts"
+          aria-live="polite"
+        >
+
+          <div class="skeleton">
+
+            <div class="skeleton-line medium"></div>
+
+            <div class="skeleton-line"></div>
+
+            <div class="skeleton-line short"></div>
+
+          </div>
+
+        </section>
+
+      </main>
+
+
+      <!-- =================================================
+           RIGHT SIDEBAR
+           ================================================= -->
+
+      <aside class="layout__right-sidebar-container">
+
+        <div class="layout__right-sidebar">
+
+
+          <!-- =================================================
+               TRENDS
+               ================================================= -->
+
+          <div class="trends-for-you">
+
+            <div class="trends-for-you__block">
+
+              <div class="trends-for-you__heading">
+                Trends for you
+              </div>
+
+            </div>
+
+
+            <div class="trends-for-you__block">
+
+              <div class="trends-for-you__meta-information">
+                Trending in India
+              </div>
+
+              <div class="trends-for-you__trend-name">
+                #AI
+              </div>
+
+              <div class="trends-for-you__meta-information">
+                155k Posts
+              </div>
+
+            </div>
+
+
+            <div class="trends-for-you__block">
+
+              <div class="trends-for-you__meta-information">
+                Technology · Trending
+              </div>
+
+              <div class="trends-for-you__trend-name">
+                #WebDevelopment
+              </div>
+
+            </div>
+
+
+            <div class="trends-for-you__block">
+
+              <div class="trends-for-you__meta-information">
+                Trending
+              </div>
+
+              <div class="trends-for-you__trend-name">
+                #OpenSource
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <!-- =================================================
+               WHO TO FOLLOW
+               ================================================= -->
+
+          <div class="who-to-follow">
+
+            <div class="who-to-follow__block">
+
+              <div class="who-to-follow__heading">
+                Who to follow
+              </div>
+
+            </div>
+
+
+            <!-- Person 1 -->
+
+            <div class="who-to-follow__block">
+
+              <img
+                class="who-to-follow__author-logo"
+                src="images/profile-image-2.png"
+                alt="Becki profile"
+              >
+
+              <div class="who-to-follow__content">
+
+                <div>
+
+                  <div class="who-to-follow__author-name">
+                    Becki (& Chris)
+                  </div>
+
+                  <div class="who-to-follow__author-slug">
+                    @beckiandchris
+                  </div>
+
+                </div>
+
+
+                <button
+                  class="who-to-follow__button follow-btn"
+                  type="button"
+                  data-handle="beckiandchris"
+                >
+                  Follow
+                </button>
+
+              </div>
+
+            </div>
+
+
+            <!-- Person 2 -->
+
+            <div class="who-to-follow__block">
+
+              <img
+                class="who-to-follow__author-logo"
+                src="images/profile-image-2.png"
+                alt="Elixir Digest profile"
+              >
+
+              <div class="who-to-follow__content">
+
+                <div>
+
+                  <div class="who-to-follow__author-name">
+                    Elixir Digest
+                  </div>
+
+                  <div class="who-to-follow__author-slug">
+                    @elixirdigest
+                  </div>
+
+                </div>
+
+
+                <button
+                  class="who-to-follow__button follow-btn"
+                  type="button"
+                  data-handle="elixirdigest"
+                >
+                  Follow
+                </button>
+
+              </div>
+
+            </div>
+
+
+            <!-- Person 3 -->
+
+            <div class="who-to-follow__block">
+
+              <img
+                class="who-to-follow__author-logo"
+                src="images/profile-image-3.jpg"
+                alt="Chris Martin profile"
+              >
+
+              <div class="who-to-follow__content">
+
+                <div>
+
+                  <div class="who-to-follow__author-name">
+                    Chris Martin
+                  </div>
+
+                  <div class="who-to-follow__author-slug">
+                    @chris_martin
+                  </div>
+
+                </div>
+
+
+                <button
+                  class="who-to-follow__button follow-btn"
+                  type="button"
+                  data-handle="chris_martin"
+                >
+                  Follow
+                </button>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </aside>
+
+    </div>
+
+
+    <!-- =================================================
+         TOAST
+         ================================================= -->
+
+    <div
+      id="toast"
+      class="toast hidden"
+      role="status"
+      aria-live="polite"
+    ></div>
+
+  </div>
+
+
+  <!-- =====================================================
+       SUPABASE
+       ===================================================== -->
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <script src="js/supabase.js"></script>
+
+
+  <!-- =====================================================
+       PROFILE JAVASCRIPT
+       ===================================================== -->
+
+  <script>
+
+    document.addEventListener(
+      "DOMContentLoaded",
+      async function () {
+
+
+        /* =================================================
+           SUPABASE
+           ================================================= */
+
+        const profileSupabase =
+          window.appSupabase;
+
+
+        if (!profileSupabase) {
+
+          console.error(
+            "Supabase client is missing."
+          );
+
+          return;
+
+        }
+
+
+        /* =================================================
+           ELEMENTS
+           ================================================= */
+
+        const profileName =
+          document.getElementById(
+            "profileName"
+          );
+
+
+        const profileHandle =
+          document.getElementById(
+            "profileHandle"
+          );
+
+
+        const profileBio =
+          document.getElementById(
+            "profileBio"
+          );
+
+
+        const profileEmail =
+          document.getElementById(
+            "profileEmail"
+          );
+
+
+        const profileAvatar =
+          document.getElementById(
+            "profileAvatar"
+          );
+
+
+        const profilePosts =
+          document.getElementById(
+            "profilePosts"
+          );
+
+
+        const editProfileBtn =
+          document.getElementById(
+            "editProfileBtn"
+          );
+
+
+        const editProfilePanel =
+          document.getElementById(
+            "editProfilePanel"
+          );
+
+
+        const cancelEditBtn =
+          document.getElementById(
+            "cancelEditBtn"
+          );
+
+
+        const profileForm =
+          document.getElementById(
+            "profileForm"
+          );
+
+
+        const saveProfileBtn =
+          document.getElementById(
+            "saveProfileBtn"
+          );
+
+
+        const profileMessage =
+          document.getElementById(
+            "profileMessage"
+          );
+
+
+        const logoutBtn =
+          document.getElementById(
+            "logoutBtn"
+          );
+
+
+        const toast =
+          document.getElementById(
+            "toast"
+          );
+
+
+        const fallbackAvatar =
+          "images/profile-image-1.jpg";
+
+
+        let currentUser = null;
+
+        let currentProfile = null;
+
+
+        /* =================================================
+           TOAST
+           ================================================= */
+
+        function showToast(message) {
+
+          if (!toast) return;
+
+
+          toast.textContent =
+            message;
+
+
+          toast.classList.remove(
+            "hidden"
+          );
+
+
+          clearTimeout(
+            window.profileToastTimer
+          );
+
+
+          window.profileToastTimer =
+            setTimeout(
+              function () {
+
+                toast.classList.add(
+                  "hidden"
+                );
+
+              },
+              2500
+            );
+
+        }
+
+
+        /* =================================================
+           ESCAPE HTML
+           ================================================= */
+
+        function escapeHtml(value) {
+
+          return String(
+            value ?? ""
+          ).replace(
+            /[&<>"']/g,
+            function (char) {
+
+              return {
+                "&": "&amp;",
+                "<": "&lt;",
+                ">": "&gt;",
+                '"': "&quot;",
+                "'": "&#039;"
+              }[char];
+
+            }
+          );
+
+        }
+
+
+        /* =================================================
+           TIME AGO
+           ================================================= */
+
+        function timeAgo(value) {
+
+          const timestamp =
+            new Date(value).getTime();
+
+
+          const seconds =
+            Math.max(
+              1,
+              Math.floor(
+                (
+                  Date.now() -
+                  timestamp
+                ) / 1000
+              )
+            );
+
+
+          if (seconds < 60) {
+
+            return `${seconds}s`;
+
+          }
+
+
+          const minutes =
+            Math.floor(
+              seconds / 60
+            );
+
+
+          if (minutes < 60) {
+
+            return `${minutes}m`;
+
+          }
+
+
+          const hours =
+            Math.floor(
+              minutes / 60
+            );
+
+
+          if (hours < 24) {
+
+            return `${hours}h`;
+
+          }
+
+
+          return `${Math.floor(
+            hours / 24
+          )}d`;
+
+        }
+
+
+        /* =================================================
+           LOAD AUTH USER
+           ================================================= */
+
+        async function loadUser() {
+
+          const {
+            data,
+            error
+          } =
+            await profileSupabase.auth.getSession();
+
+
+          if (error) {
+
+            throw error;
+
+          }
+
+
+          currentUser =
+            data?.session?.user ||
+            null;
+
+
+          if (!currentUser) {
+
+            window.location.href =
+              "login.html";
+
+            return false;
+
+          }
+
+
+          return true;
+
+        }
+
+
+        /* =================================================
+           LOAD PROFILE
+           ================================================= */
+
+        async function loadProfile() {
+
+          const {
+            data,
+            error
+          } =
+            await profileSupabase
+              .from("profiles")
+              .select(
+                "id,name,handle,avatar_url,bio"
+              )
+              .eq(
+                "id",
+                currentUser.id
+              )
+              .maybeSingle();
+
+
+          if (error) {
+
+            throw error;
+
+          }
+
+
+          /* ---------------------------------------------
+             PROFILE DOES NOT EXIST
+             --------------------------------------------- */
+
+          if (!data) {
+
+            const metadata =
+              currentUser.user_metadata ||
+              {};
+
+
+            const fallbackName =
+              metadata.name ||
+              currentUser.email?.split(
+                "@"
+              )[0] ||
+              "User";
+
+
+            const fallbackHandle =
+              metadata.handle ||
+              currentUser.email?.split(
+                "@"
+              )[0] ||
+              "user";
+
+
+            profileName.textContent =
+              fallbackName;
+
+
+            profileHandle.textContent =
+              "@" +
+              String(
+                fallbackHandle
+              ).replace(
+                /^@/,
+                ""
+              );
+
+
+            profileBio.textContent =
+              "Welcome to my Chirp profile.";
+
+
+            profileEmail.textContent =
+              currentUser.email ||
+              "";
+
+
+            profileAvatar.src =
+              fallbackAvatar;
+
+
+            document.getElementById(
+              "editName"
+            ).value =
+              fallbackName;
+
+
+            document.getElementById(
+              "editHandle"
+            ).value =
+              fallbackHandle;
+
+
+            document.getElementById(
+              "editBio"
+            ).value =
+              "";
+
+
+            currentProfile = {
+              id: currentUser.id,
+              name: fallbackName,
+              handle: fallbackHandle,
+              avatar_url: fallbackAvatar,
+              bio: ""
+            };
+
+
+            return;
+
+          }
+
+
+          currentProfile =
+            data;
+
+
+          /* ---------------------------------------------
+             DISPLAY PROFILE
+             --------------------------------------------- */
+
+          profileName.textContent =
+            data.name ||
+            "User";
+
+
+          profileHandle.textContent =
+            "@" +
+            String(
+              data.handle ||
+              "user"
+            ).replace(
+              /^@/,
+              ""
+            );
+
+
+          profileBio.textContent =
+            data.bio ||
+            "Welcome to my Chirp profile.";
+
+
+          profileEmail.textContent =
+            currentUser.email ||
+            "";
+
+
+          profileAvatar.src =
+            data.avatar_url ||
+            fallbackAvatar;
+
+
+          /* ---------------------------------------------
+             EDIT FORM
+             --------------------------------------------- */
+
+          document.getElementById(
+            "editName"
+          ).value =
+            data.name ||
+            "";
+
+
+          document.getElementById(
+            "editHandle"
+          ).value =
+            data.handle ||
+            "";
+
+
+          document.getElementById(
+            "editBio"
+          ).value =
+            data.bio ||
+            "";
+
+        }
+
+
+        /* =================================================
+           LOAD USER POSTS
+           ================================================= */
+
+        async function loadPosts() {
+
+          const {
+            data,
+            error
+          } =
+            await profileSupabase
+              .from("posts")
+              .select("*")
+              .eq(
+                "user_id",
+                currentUser.id
+              )
+              .order(
+                "created_at",
+                {
+                  ascending: false
+                }
+              );
+
+
+          if (error) {
+
+            throw error;
+
+          }
+
+
+          if (
+            !data ||
+            data.length === 0
+          ) {
+
+            profilePosts.innerHTML = `
+
+              <div class="profile-empty">
+
+                <h3>
+                  No posts yet
+                </h3>
+
+                <p>
+                  Your posts will appear here.
+                </p>
+
+                <a href="index.html">
+                  Create your first post →
+                </a>
+
+              </div>
+
+            `;
+
+            return;
+
+          }
+
+
+          profilePosts.innerHTML =
+            data.map(
+              function (post) {
+
+                const image =
+                  post.image_url
+                    ? `
+
+                      <img
+                        src="${escapeHtml(
+                          post.image_url
+                        )}"
+                        alt="Post image"
+                        class="profile-post-image"
+                      >
+
+                    `
+                    : "";
+
+
+                return `
+
+                  <article class="profile-post">
+
+                    <div class="profile-post-header">
+
+                      <img
+                        src="${escapeHtml(
+                          currentProfile?.avatar_url ||
+                          fallbackAvatar
+                        )}"
+                        alt=""
+                        class="profile-post-avatar"
+                      >
+
+                      <div>
+
+                        <strong>
+                          ${escapeHtml(
+                            currentProfile?.name ||
+                            "User"
+                          )}
+                        </strong>
+
+                        <div class="muted">
+
+                          @${escapeHtml(
+                            (
+                              currentProfile?.handle ||
+                              "user"
+                            ).replace(
+                              /^@/,
+                              ""
+                            )
+                          )}
+
+                          ·
+
+                          ${timeAgo(
+                            post.created_at
+                          )}
+
+                        </div>
+
+                      </div>
+
+                    </div>
+
+
+                    ${
+                      post.content
+                        ? `
+
+                          <div class="profile-post-content">
+                            ${escapeHtml(
+                              post.content
+                            )}
+                          </div>
+
+                        `
+                        : ""
+                    }
+
+
+                    ${image}
+
+                  </article>
+
+                `;
+
+              }
+            ).join("");
+
+        }
+
+
+        /* =================================================
+           FOLLOW SYSTEM
+           ================================================= */
+
+        async function setupFollowButtons() {
+
+          if (!currentUser) return;
+
+
+          const buttons =
+            document.querySelectorAll(
+              ".follow-btn"
+            );
+
+
+          for (const button of buttons) {
+
+            const handle =
+              button.dataset.handle;
+
+
+            if (!handle) continue;
+
+
+            /* -----------------------------------------
+               FIND TARGET PROFILE
+               ----------------------------------------- */
+
+            const {
+              data: targetProfile,
+              error
+            } =
+              await profileSupabase
+                .from("profiles")
+                .select(
+                  "id,name,handle,avatar_url"
+                )
+                .eq(
+                  "handle",
+                  handle
+                )
+                .maybeSingle();
+
+
+            if (error) {
+
+              console.error(
+                "FOLLOW PROFILE ERROR:",
+                error
+              );
+
+              button.textContent =
+                "Unavailable";
+
+              button.disabled =
+                true;
+
+              continue;
+
+            }
+
+
+            if (!targetProfile) {
+
+              button.textContent =
+                "Unavailable";
+
+              button.disabled =
+                true;
+
+              continue;
+
+            }
+
+
+            /* -----------------------------------------
+               OWN ACCOUNT
+               ----------------------------------------- */
+
+            if (
+              targetProfile.id ===
+              currentUser.id
+            ) {
+
+              button.textContent =
+                "You";
+
+              button.disabled =
+                true;
+
+              button.classList.add(
+                "is-self"
+              );
+
+              continue;
+
+            }
+
+
+            /* -----------------------------------------
+               CHECK EXISTING FOLLOW
+               ----------------------------------------- */
+
+            const {
+              data: existingFollow,
+              error: followCheckError
+            } =
+              await profileSupabase
+                .from("follows")
+                .select(
+                  "follower_id"
+                )
+                .eq(
+                  "follower_id",
+                  currentUser.id
+                )
+                .eq(
+                  "following_id",
+                  targetProfile.id
+                )
+                .maybeSingle();
+
+
+            if (followCheckError) {
+
+              console.error(
+                "FOLLOW CHECK ERROR:",
+                followCheckError
+              );
+
+              button.textContent =
+                "Follow";
+
+            }
+            else if (existingFollow) {
+
+              button.textContent =
+                "Following";
+
+              button.classList.add(
+                "following"
+              );
+
+            }
+            else {
+
+              button.textContent =
+                "Follow";
+
+              button.classList.remove(
+                "following"
+              );
+
+            }
+
+
+            /* -----------------------------------------
+               FOLLOW / UNFOLLOW CLICK
+               ----------------------------------------- */
+
+            button.addEventListener(
+              "click",
+              async function () {
+
+                button.disabled =
+                  true;
+
+
+                const isFollowing =
+                  button.classList.contains(
+                    "following"
+                  );
+
+
+                try {
+
+                  if (isFollowing) {
+
+                    /* UNFOLLOW */
+
+                    const {
+                      error
+                    } =
+                      await profileSupabase
+                        .from("follows")
+                        .delete()
+                        .eq(
+                          "follower_id",
+                          currentUser.id
+                        )
+                        .eq(
+                          "following_id",
+                          targetProfile.id
+                        );
+
+
+                    if (error) {
+
+                      throw error;
+
+                    }
+
+
+                    button.textContent =
+                      "Follow";
+
+                    button.classList.remove(
+                      "following"
+                    );
+
+
+                    showToast(
+                      `Unfollowed @${targetProfile.handle}`
+                    );
+
+                  }
+                  else {
+
+                    /* FOLLOW */
+
+                    const {
+                      error
+                    } =
+                      await profileSupabase
+                        .from("follows")
+                        .insert({
+                          follower_id:
+                            currentUser.id,
+
+                          following_id:
+                            targetProfile.id
+                        });
+
+
+                    if (error) {
+
+                      throw error;
+
+                    }
+
+
+                    button.textContent =
+                      "Following";
+
+                    button.classList.add(
+                      "following"
+                    );
+
+
+                    showToast(
+                      `Following @${targetProfile.handle}`
+                    );
+
+                  }
+
+                }
+                catch (error) {
+
+                  console.error(
+                    "FOLLOW ACTION ERROR:",
+                    error
+                  );
+
+
+                  showToast(
+                    error.message ||
+                    "Unable to update follow status."
+                  );
+
+                }
+                finally {
+
+                  button.disabled =
+                    false;
+
+                }
+
+              }
+            );
+
+          }
+
+        }
+
+
+        /* =================================================
+           EDIT PROFILE
+           ================================================= */
+
+        editProfileBtn.addEventListener(
+          "click",
+          function () {
+
+            editProfilePanel.classList.toggle(
+              "hidden"
+            );
+
+
+            if (
+              !editProfilePanel.classList.contains(
+                "hidden"
+              )
+            ) {
+
+              document.getElementById(
+                "editName"
+              ).focus();
+
+            }
+
+          }
+        );
+
+
+        /* =================================================
+           CANCEL EDIT
+           ================================================= */
+
+        cancelEditBtn.addEventListener(
+          "click",
+          function () {
+
+            editProfilePanel.classList.add(
+              "hidden"
+            );
+
+
+            profileMessage.textContent =
+              "";
+
+          }
+        );
+
+
+        /* =================================================
+           SAVE PROFILE
+           ================================================= */
+
+        profileForm.addEventListener(
+          "submit",
+          async function (event) {
+
+            event.preventDefault();
+
+
+            const name =
+              document.getElementById(
+                "editName"
+              ).value.trim();
+
+
+            let handle =
+              document.getElementById(
+                "editHandle"
+              ).value.trim();
+
+
+            const bio =
+              document.getElementById(
+                "editBio"
+              ).value.trim();
+
+
+            if (!name) {
+
+              profileMessage.textContent =
+                "Please enter your name.";
+
+              return;
+
+            }
+
+
+            handle =
+              handle
+                .replace(
+                  /^@/,
+                  ""
+                )
+                .replace(
+                  /[^a-zA-Z0-9_]/g,
+                  ""
+                )
+                .toLowerCase();
+
+
+            if (!handle) {
+
+              profileMessage.textContent =
+                "Please enter a valid username.";
+
+              return;
+
+            }
+
+
+            saveProfileBtn.disabled =
+              true;
+
+
+            saveProfileBtn.textContent =
+              "Saving...";
+
+
+            profileMessage.textContent =
+              "";
+
+
+            try {
+
+              const {
+                data,
+                error
+              } =
+                await profileSupabase
+                  .from("profiles")
+                  .update({
+                    name,
+                    handle,
+                    bio
+                  })
+                  .eq(
+                    "id",
+                    currentUser.id
+                  )
+                  .select()
+                  .single();
+
+
+              if (error) {
+
+                throw error;
+
+              }
+
+
+              currentProfile =
+                data;
+
+
+              await loadProfile();
+
+              await loadPosts();
+
+              await setupFollowButtons();
+
+
+              editProfilePanel.classList.add(
+                "hidden"
+              );
+
+
+              showToast(
+                "Profile updated successfully!"
+              );
+
+            }
+            catch (error) {
+
+              console.error(
+                "PROFILE UPDATE ERROR:",
+                error
+              );
+
+
+              profileMessage.textContent =
+                error.message ||
+                "Unable to update profile.";
+
+            }
+            finally {
+
+              saveProfileBtn.disabled =
+                false;
+
+
+              saveProfileBtn.textContent =
+                "Save changes";
+
+            }
+
+          }
+        );
+
+
+        /* =================================================
+           LOGOUT
+           ================================================= */
+
+        logoutBtn.addEventListener(
+          "click",
+          async function () {
+
+            try {
+
+              await profileSupabase.auth.signOut();
+
+            }
+            finally {
+
+              window.location.href =
+                "login.html";
+
+            }
+
+          }
+        );
+
+
+        /* =================================================
+           MOBILE SIDEBAR
+           ================================================= */
+
+        const menuToggle =
+          document.getElementById(
+            "menuToggle"
+          );
+
+
+        const sidebarOverlay =
+          document.getElementById(
+            "sidebarOverlay"
+          );
+
+
+        const sidebar =
+          document.querySelector(
+            ".layout__left-sidebar"
+          );
+
+
+        if (
+          menuToggle &&
+          sidebar &&
+          sidebarOverlay
+        ) {
+
+          menuToggle.addEventListener(
+            "click",
+            function () {
+
+              const open =
+                sidebar.classList.toggle(
+                  "open"
+                );
+
+
+              sidebarOverlay.classList.toggle(
+                "hidden"
+              );
+
+
+              menuToggle.setAttribute(
+                "aria-expanded",
+                String(open)
+              );
+
+
+              menuToggle.setAttribute(
+                "aria-label",
+                open
+                  ? "Close sidebar"
+                  : "Open sidebar"
+              );
+
+            }
+          );
+
+
+          sidebarOverlay.addEventListener(
+            "click",
+            function () {
+
+              sidebar.classList.remove(
+                "open"
+              );
+
+
+              sidebarOverlay.classList.add(
+                "hidden"
+              );
+
+
+              menuToggle.setAttribute(
+                "aria-expanded",
+                "false"
+              );
+
+
+              menuToggle.setAttribute(
+                "aria-label",
+                "Open sidebar"
+              );
+
+            }
+          );
+
+
+          document.addEventListener(
+            "keydown",
+            function (event) {
+
+              if (
+                event.key ===
+                "Escape"
+              ) {
+
+                sidebar.classList.remove(
+                  "open"
+                );
+
+
+                sidebarOverlay.classList.add(
+                  "hidden"
+                );
+
+
+                menuToggle.setAttribute(
+                  "aria-expanded",
+                  "false"
+                );
+
+              }
+
+            }
+          );
+
+        }
+
+
+        /* =================================================
+           INITIALIZE PROFILE
+           ================================================= */
+
+        try {
+
+          const loggedIn =
+            await loadUser();
+
+
+          if (!loggedIn) {
+
+            return;
+
+          }
+
+
+          await loadProfile();
+
+          await loadPosts();
+
+          await setupFollowButtons();
+
+
+          console.log(
+            "Chirp profile initialized successfully."
+          );
+
+        }
+        catch (error) {
+
+          console.error(
+            "PROFILE INITIALIZATION ERROR:",
+            error
+          );
+
+
+          profileName.textContent =
+            "Unable to load profile";
+
+
+          profileHandle.textContent =
+            "";
+
+
+          profileBio.textContent =
+            error.message ||
+            "Please refresh the page.";
+
+
+          showToast(
+            error.message ||
+            "Unable to load profile."
+          );
+
+        }
+
+      }
+    );
+
+  </script>
+
+</body>
+
+</html>

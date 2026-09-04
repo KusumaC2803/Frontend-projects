@@ -1,0 +1,1527 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>Chirp — Notifications</title>
+
+  <!-- Existing CSS -->
+  <link rel="stylesheet" href="css/global.css">
+  <link rel="stylesheet" href="css/blocks/layout.css">
+  <link rel="stylesheet" href="css/blocks/brand.css">
+  <link rel="stylesheet" href="css/blocks/sidebar-menu.css">
+  <link rel="stylesheet" href="css/blocks/trends-for-you.css">
+  <link rel="stylesheet" href="css/blocks/who-to-follow.css">
+  <link rel="stylesheet" href="css/app.css">
+
+  <style>
+
+    /* =========================================================
+       NOTIFICATIONS
+       ========================================================= */
+
+    .notifications-page {
+      width: 100%;
+    }
+
+    .notifications-header {
+      padding: 18px 20px;
+      border-bottom: 1px solid #e1e8ed;
+      background: #fff;
+    }
+
+    .notifications-header h2 {
+      margin: 0;
+      font-size: 20px;
+    }
+
+    .notifications-actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .notification-action-btn {
+      border: 1px solid #cfd9de;
+      background: #fff;
+      color: #0f1419;
+      padding: 8px 14px;
+      border-radius: 999px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .notification-action-btn:hover {
+      background: #f5f8fa;
+    }
+
+    .notification-list {
+      width: 100%;
+    }
+
+    .notification-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 18px 20px;
+      border-bottom: 1px solid #e1e8ed;
+      cursor: pointer;
+      transition: background 0.15s ease;
+    }
+
+    .notification-item:hover {
+      background: #f7f9fa;
+    }
+
+    .notification-item.unread {
+      background: #eef7ff;
+    }
+
+    .notification-avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+
+    .notification-icon {
+      width: 28px;
+      height: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+
+    .notification-content {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .notification-text {
+      color: #0f1419;
+      font-size: 15px;
+      line-height: 1.45;
+    }
+
+    .notification-text strong {
+      font-weight: 800;
+    }
+
+    .notification-time {
+      margin-top: 4px;
+      color: #536471;
+      font-size: 13px;
+    }
+
+    .notification-dot {
+      width: 9px;
+      height: 9px;
+      background: #1d9bf0;
+      border-radius: 50%;
+      margin-top: 7px;
+      flex-shrink: 0;
+    }
+
+    .notifications-empty {
+      text-align: center;
+      padding: 70px 20px;
+      color: #536471;
+    }
+
+    .notifications-empty-icon {
+      font-size: 48px;
+      margin-bottom: 12px;
+    }
+
+    .notifications-empty h3 {
+      margin: 0 0 8px;
+      color: #0f1419;
+      font-size: 20px;
+    }
+
+    .notifications-empty p {
+      margin: 0;
+    }
+
+    .notifications-loading {
+      padding: 60px 20px;
+      text-align: center;
+      color: #536471;
+    }
+
+    .notifications-error {
+      padding: 30px 20px;
+      text-align: center;
+      color: #e0245e;
+    }
+
+    @media (max-width: 700px) {
+
+      .notification-item {
+        padding: 16px;
+      }
+
+      .notification-avatar {
+        width: 42px;
+        height: 42px;
+      }
+
+      .notifications-header {
+        padding: 16px;
+      }
+
+    }
+
+  </style>
+
+</head>
+
+
+<body>
+
+  <div class="app-shell">
+
+
+    <!-- =======================================================
+         TOP BAR
+         ======================================================= -->
+
+    <header class="topbar">
+
+      <button
+        id="menuToggle"
+        class="menu-toggle"
+        type="button"
+        aria-label="Open menu"
+      >
+        ☰
+      </button>
+
+      <img
+        src="svg/twitter.svg"
+        class="mobile-logo"
+        alt="Chirp"
+      >
+
+      <strong>
+        Notifications
+      </strong>
+
+      <button
+        id="logoutBtn"
+        class="logout-btn"
+        type="button"
+      >
+        Logout
+      </button>
+
+    </header>
+
+
+    <!-- =======================================================
+         SIDEBAR OVERLAY
+         ======================================================= -->
+
+    <div
+      id="sidebarOverlay"
+      class="sidebar-overlay hidden"
+    ></div>
+
+
+    <!-- =======================================================
+         MAIN LAYOUT
+         ======================================================= -->
+
+    <div class="layout">
+
+
+      <!-- =====================================================
+           LEFT SIDEBAR
+           ===================================================== -->
+
+      <aside class="layout__left-sidebar">
+
+        <img
+          src="svg/twitter.svg"
+          class="brand"
+          alt="Chirp"
+        >
+
+
+        <nav
+          class="sidebar-menu"
+          aria-label="Main navigation"
+        >
+
+          <a
+            href="index.html"
+            class="sidebar-menu__item"
+          >
+            <img
+              src="svg/home.svg"
+              class="sidebar-menu__item-icon"
+              alt=""
+            >
+            <span>Home</span>
+          </a>
+
+
+          <a
+            href="explore.html"
+            class="sidebar-menu__item"
+          >
+            <img
+              src="svg/explore.svg"
+              class="sidebar-menu__item-icon"
+              alt=""
+            >
+            <span>Explore</span>
+          </a>
+
+
+          <a
+            href="notifications.html"
+            class="sidebar-menu__item sidebar-menu__item--active"
+          >
+            <img
+              src="svg/notifications.svg"
+              class="sidebar-menu__item-icon"
+              alt=""
+            >
+            <span>Notifications</span>
+          </a>
+
+
+          <a
+            href="messages.html"
+            class="sidebar-menu__item"
+          >
+            <img
+              src="svg/messages.svg"
+              class="sidebar-menu__item-icon"
+              alt=""
+            >
+            <span>Messages</span>
+          </a>
+
+
+          <a
+            href="profile.html"
+            class="sidebar-menu__item"
+          >
+            <img
+              src="svg/profile.svg"
+              class="sidebar-menu__item-icon"
+              alt=""
+            >
+            <span>Profile</span>
+          </a>
+
+
+          <a
+            href="more.html"
+            class="sidebar-menu__item"
+          >
+            <img
+              src="svg/more.svg"
+              class="sidebar-menu__item-icon"
+              alt=""
+            >
+            <span>More</span>
+          </a>
+
+        </nav>
+
+      </aside>
+
+
+      <!-- =====================================================
+           CENTER
+           ===================================================== -->
+
+      <main class="layout__main notifications-page">
+
+
+        <section class="notifications-header">
+
+          <h2>
+            Notifications
+          </h2>
+
+          <div class="notifications-actions">
+
+            <button
+              id="markAllReadBtn"
+              class="notification-action-btn"
+              type="button"
+            >
+              Mark all as read
+            </button>
+
+            <button
+              id="refreshNotificationsBtn"
+              class="notification-action-btn"
+              type="button"
+            >
+              Refresh
+            </button>
+
+          </div>
+
+        </section>
+
+
+        <!-- ===================================================
+             NOTIFICATION LIST
+             =================================================== -->
+
+        <section
+          id="notificationList"
+          class="notification-list"
+        >
+
+          <div class="notifications-loading">
+            Loading notifications...
+          </div>
+
+        </section>
+
+
+      </main>
+
+
+      <!-- =====================================================
+           RIGHT SIDEBAR
+           ===================================================== -->
+
+      <aside class="layout__right-sidebar-container">
+
+        <div class="layout__right-sidebar">
+
+
+          <!-- TRENDS -->
+
+          <section class="trends-for-you">
+
+            <div class="trends-for-you__block">
+
+              <div class="trends-for-you__heading">
+                Trends for you
+              </div>
+
+            </div>
+
+
+            <div class="trends-for-you__block">
+
+              <div class="trends-for-you__meta-information">
+                Trending in India
+              </div>
+
+              <div class="trends-for-you__trend-name">
+                #AI
+              </div>
+
+              <div class="trends-for-you__meta-information">
+                155k Posts
+              </div>
+
+            </div>
+
+
+            <div class="trends-for-you__block">
+
+              <div class="trends-for-you__meta-information">
+                Technology · Trending
+              </div>
+
+              <div class="trends-for-you__trend-name">
+                #WebDevelopment
+              </div>
+
+            </div>
+
+
+            <div class="trends-for-you__block">
+
+              <div class="trends-for-you__meta-information">
+                Trending
+              </div>
+
+              <div class="trends-for-you__trend-name">
+                #Supabase
+              </div>
+
+            </div>
+
+
+            <div class="trends-for-you__block">
+
+              <div class="trends-for-you__meta-information">
+                Trending
+              </div>
+
+              <div class="trends-for-you__trend-name">
+                #OpenSource
+              </div>
+
+            </div>
+
+          </section>
+
+
+          <!-- WHO TO FOLLOW -->
+
+          <section class="who-to-follow">
+
+            <div class="who-to-follow__block">
+
+              <div class="who-to-follow__heading">
+                Who to follow
+              </div>
+
+            </div>
+
+
+            <div class="who-to-follow__block">
+
+              <img
+                class="who-to-follow__author-logo"
+                src="images/profile-image-2.png"
+                alt="Anime Dev"
+              >
+
+              <div class="who-to-follow__content">
+
+                <div>
+
+                  <div class="who-to-follow__author-name">
+                    Anime Dev
+                  </div>
+
+                  <div class="who-to-follow__author-slug">
+                    @anime_dev
+                  </div>
+
+                </div>
+
+                <button
+                  class="who-to-follow__button"
+                  type="button"
+                >
+                  Follow
+                </button>
+
+              </div>
+
+            </div>
+
+
+            <div class="who-to-follow__block">
+
+              <img
+                class="who-to-follow__author-logo"
+                src="images/profile-image-3.jpg"
+                alt="Tech Creator"
+              >
+
+              <div class="who-to-follow__content">
+
+                <div>
+
+                  <div class="who-to-follow__author-name">
+                    Tech Creator
+                  </div>
+
+                  <div class="who-to-follow__author-slug">
+                    @tech_creator
+                  </div>
+
+                </div>
+
+                <button
+                  class="who-to-follow__button"
+                  type="button"
+                >
+                  Follow
+                </button>
+
+              </div>
+
+            </div>
+
+
+            <div class="who-to-follow__block">
+
+              <img
+                class="who-to-follow__author-logo"
+                src="images/profile-image-1.jpg"
+                alt="AI Developer"
+              >
+
+              <div class="who-to-follow__content">
+
+                <div>
+
+                  <div class="who-to-follow__author-name">
+                    AI Developer
+                  </div>
+
+                  <div class="who-to-follow__author-slug">
+                    @ai_developer
+                  </div>
+
+                </div>
+
+                <button
+                  class="who-to-follow__button"
+                  type="button"
+                >
+                  Follow
+                </button>
+
+              </div>
+
+            </div>
+
+          </section>
+
+        </div>
+
+      </aside>
+
+    </div>
+
+
+    <!-- TOAST -->
+
+    <div
+      id="toast"
+      class="toast hidden"
+      role="status"
+    ></div>
+
+  </div>
+
+
+  <!-- =========================================================
+       SUPABASE
+       ========================================================= -->
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <script src="js/supabase.js"></script>
+
+
+  <!-- =========================================================
+       NOTIFICATIONS JAVASCRIPT
+       ========================================================= -->
+
+  <script>
+
+    document.addEventListener(
+      "DOMContentLoaded",
+      async function () {
+
+        const supabase =
+          window.appSupabase;
+
+        const notificationList =
+          document.getElementById(
+            "notificationList"
+          );
+
+        const markAllReadBtn =
+          document.getElementById(
+            "markAllReadBtn"
+          );
+
+        const refreshBtn =
+          document.getElementById(
+            "refreshNotificationsBtn"
+          );
+
+        const logoutBtn =
+          document.getElementById(
+            "logoutBtn"
+          );
+
+
+        let currentUser = null;
+
+
+        const fallbackAvatar =
+          "images/profile-image-1.jpg";
+
+
+        /* =====================================================
+           ESCAPE HTML
+           ===================================================== */
+
+        function escapeHtml(value) {
+
+          return String(
+            value ?? ""
+          ).replace(
+            /[&<>"']/g,
+            function (char) {
+
+              return {
+                "&": "&amp;",
+                "<": "&lt;",
+                ">": "&gt;",
+                '"': "&quot;",
+                "'": "&#039;"
+              }[char];
+
+            }
+          );
+
+        }
+
+
+        /* =====================================================
+           TIME AGO
+           ===================================================== */
+
+        function timeAgo(dateValue) {
+
+          const time =
+            new Date(
+              dateValue
+            ).getTime();
+
+          if (!Number.isFinite(time)) {
+            return "";
+          }
+
+          const seconds =
+            Math.max(
+              1,
+              Math.floor(
+                (
+                  Date.now() - time
+                ) / 1000
+              )
+            );
+
+          if (seconds < 60) {
+            return `${seconds}s`;
+          }
+
+          const minutes =
+            Math.floor(
+              seconds / 60
+            );
+
+          if (minutes < 60) {
+            return `${minutes}m`;
+          }
+
+          const hours =
+            Math.floor(
+              minutes / 60
+            );
+
+          if (hours < 24) {
+            return `${hours}h`;
+          }
+
+          const days =
+            Math.floor(
+              hours / 24
+            );
+
+          if (days < 30) {
+            return `${days}d`;
+          }
+
+          return new Date(
+            dateValue
+          ).toLocaleDateString();
+
+        }
+
+
+        /* =====================================================
+           GET SESSION
+           ===================================================== */
+
+        async function getUser() {
+
+          const {
+            data,
+            error
+          } =
+            await supabase
+              .auth
+              .getSession();
+
+          if (error) {
+            throw error;
+          }
+
+          currentUser =
+            data?.session?.user ||
+            null;
+
+          if (!currentUser) {
+
+            window.location.href =
+              "login.html";
+
+            return false;
+
+          }
+
+          return true;
+
+        }
+
+
+        /* =====================================================
+           NOTIFICATION TEXT
+           ===================================================== */
+
+        function getNotificationText(
+          notification,
+          actor
+        ) {
+
+          const actorName =
+            actor?.name ||
+            "Someone";
+
+          const type =
+            String(
+              notification.type ||
+              notification.notification_type ||
+              ""
+            ).toLowerCase();
+
+
+          if (
+            type.includes("like")
+          ) {
+
+            return `
+              <strong>
+                ${escapeHtml(actorName)}
+              </strong>
+              liked your post ❤️
+            `;
+
+          }
+
+
+          if (
+            type.includes("comment")
+          ) {
+
+            return `
+              <strong>
+                ${escapeHtml(actorName)}
+              </strong>
+              commented on your post 💬
+            `;
+
+          }
+
+
+          if (
+            type.includes("repost")
+          ) {
+
+            return `
+              <strong>
+                ${escapeHtml(actorName)}
+              </strong>
+              reposted your post 🔁
+            `;
+
+          }
+
+
+          if (
+            type.includes("follow")
+          ) {
+
+            return `
+              <strong>
+                ${escapeHtml(actorName)}
+              </strong>
+              followed you 👤
+            `;
+
+          }
+
+
+          if (notification.message) {
+
+            return escapeHtml(
+              notification.message
+            );
+
+          }
+
+
+          return `
+            <strong>
+              ${escapeHtml(actorName)}
+            </strong>
+            interacted with you.
+          `;
+
+        }
+
+
+        /* =====================================================
+           LOAD NOTIFICATIONS
+           ===================================================== */
+
+        async function loadNotifications() {
+
+          notificationList.innerHTML = `
+            <div class="notifications-loading">
+              Loading notifications...
+            </div>
+          `;
+
+
+          /*
+           * We select all columns so this page remains compatible
+           * with your existing notifications table.
+           */
+
+          const {
+            data,
+            error
+          } =
+            await supabase
+              .from("notifications")
+              .select("*")
+              .eq(
+                "user_id",
+                currentUser.id
+              )
+              .order(
+                "created_at",
+                {
+                  ascending: false
+                }
+              );
+
+
+          if (error) {
+
+            throw error;
+
+          }
+
+
+          if (
+            !data ||
+            data.length === 0
+          ) {
+
+            notificationList.innerHTML = `
+
+              <div class="notifications-empty">
+
+                <div class="notifications-empty-icon">
+                  🔔
+                </div>
+
+                <h3>
+                  No notifications yet
+                </h3>
+
+                <p>
+                  When people interact with you,
+                  you'll see it here.
+                </p>
+
+              </div>
+
+            `;
+
+            return;
+
+          }
+
+
+          /* =================================================
+             FIND ACTORS
+             ================================================= */
+
+          const actorIds =
+            [
+              ...new Set(
+                data
+                  .map(
+                    item =>
+                      item.actor_id ||
+                      item.from_user_id ||
+                      item.sender_id
+                  )
+                  .filter(Boolean)
+              )
+            ];
+
+
+          let actors = [];
+
+
+          if (
+            actorIds.length > 0
+          ) {
+
+            const {
+              data: actorData,
+              error: actorError
+            } =
+              await supabase
+                .from("profiles")
+                .select(
+                  "id,name,handle,avatar_url"
+                )
+                .in(
+                  "id",
+                  actorIds
+                );
+
+
+            if (!actorError) {
+
+              actors =
+                actorData || [];
+
+            }
+
+          }
+
+
+          const actorMap =
+            new Map(
+              actors.map(
+                actor => [
+                  actor.id,
+                  actor
+                ]
+              )
+            );
+
+
+          /* =================================================
+             RENDER
+             ================================================= */
+
+          notificationList.innerHTML =
+            data
+              .map(
+                function (notification) {
+
+                  const actorId =
+                    notification.actor_id ||
+                    notification.from_user_id ||
+                    notification.sender_id ||
+                    null;
+
+
+                  const actor =
+                    actorMap.get(
+                      actorId
+                    ) || {
+
+                      name:
+                        "Someone",
+
+                      handle:
+                        "user",
+
+                      avatar_url:
+                        fallbackAvatar
+
+                    };
+
+
+                  const isRead =
+                    notification.is_read === true ||
+                    notification.read === true;
+
+
+                  return `
+
+                    <article
+                      class="
+                        notification-item
+                        ${isRead ? "" : "unread"}
+                      "
+                      data-id="${escapeHtml(
+                        notification.id
+                      )}"
+                    >
+
+                      <img
+                        class="notification-avatar"
+                        src="${escapeHtml(
+                          actor.avatar_url ||
+                          fallbackAvatar
+                        )}"
+                        alt=""
+                        onerror="
+                          this.src='${fallbackAvatar}'
+                        "
+                      >
+
+
+                      <div class="notification-icon">
+                        ${
+                          String(
+                            notification.type ||
+                            ""
+                          ).toLowerCase().includes("like")
+                            ? "❤️"
+                            : String(
+                                notification.type ||
+                                ""
+                              ).toLowerCase().includes("comment")
+                              ? "💬"
+                              : String(
+                                  notification.type ||
+                                  ""
+                                ).toLowerCase().includes("repost")
+                                ? "🔁"
+                                : String(
+                                    notification.type ||
+                                    ""
+                                  ).toLowerCase().includes("follow")
+                                  ? "👤"
+                                  : "🔔"
+                        }
+                      </div>
+
+
+                      <div
+                        class="notification-content"
+                      >
+
+                        <div
+                          class="notification-text"
+                        >
+                          ${getNotificationText(
+                            notification,
+                            actor
+                          )}
+                        </div>
+
+
+                        <div
+                          class="notification-time"
+                        >
+                          ${timeAgo(
+                            notification.created_at
+                          )}
+                        </div>
+
+                      </div>
+
+
+                      ${
+                        isRead
+                          ? ""
+                          : `
+                            <div
+                              class="notification-dot"
+                            ></div>
+                          `
+                      }
+
+                    </article>
+
+                  `;
+
+                }
+              )
+              .join("");
+
+
+          /* =================================================
+             CLICK → MARK READ
+             ================================================= */
+
+          document
+            .querySelectorAll(
+              ".notification-item"
+            )
+            .forEach(
+              function (item) {
+
+                item.addEventListener(
+                  "click",
+                  function () {
+
+                    markNotificationRead(
+                      item.dataset.id
+                    );
+
+                  }
+                );
+
+              }
+            );
+
+        }
+
+
+        /* =====================================================
+           MARK ONE READ
+           ===================================================== */
+
+        async function markNotificationRead(
+          notificationId
+        ) {
+
+          try {
+
+            const {
+              error
+            } =
+              await supabase
+                .from("notifications")
+                .update({
+                  is_read: true
+                })
+                .eq(
+                  "id",
+                  notificationId
+                )
+                .eq(
+                  "user_id",
+                  currentUser.id
+                );
+
+
+            if (error) {
+
+              console.warn(
+                "Unable to mark notification read:",
+                error
+              );
+
+              return;
+
+            }
+
+
+            const element =
+              document.querySelector(
+                `[data-id="${notificationId}"]`
+              );
+
+
+            if (element) {
+
+              element.classList.remove(
+                "unread"
+              );
+
+              const dot =
+                element.querySelector(
+                  ".notification-dot"
+                );
+
+              if (dot) {
+                dot.remove();
+              }
+
+            }
+
+          } catch (error) {
+
+            console.error(
+              error
+            );
+
+          }
+
+        }
+
+
+        /* =====================================================
+           MARK ALL READ
+           ===================================================== */
+
+        markAllReadBtn.addEventListener(
+          "click",
+          async function () {
+
+            markAllReadBtn.disabled =
+              true;
+
+            markAllReadBtn.textContent =
+              "Updating...";
+
+
+            try {
+
+              const {
+                error
+              } =
+                await supabase
+                  .from("notifications")
+                  .update({
+                    is_read: true
+                  })
+                  .eq(
+                    "user_id",
+                    currentUser.id
+                  )
+                  .eq(
+                    "is_read",
+                    false
+                  );
+
+
+              if (error) {
+
+                throw error;
+
+              }
+
+
+              document
+                .querySelectorAll(
+                  ".notification-item"
+                )
+                .forEach(
+                  function (item) {
+
+                    item.classList.remove(
+                      "unread"
+                    );
+
+
+                    const dot =
+                      item.querySelector(
+                        ".notification-dot"
+                      );
+
+                    if (dot) {
+                      dot.remove();
+                    }
+
+                  }
+                );
+
+
+              markAllReadBtn.textContent =
+                "All caught up ✓";
+
+
+              setTimeout(
+                function () {
+
+                  markAllReadBtn.textContent =
+                    "Mark all as read";
+
+                },
+                1800
+              );
+
+
+            } catch (error) {
+
+              console.error(
+                "MARK ALL READ ERROR:",
+                error
+              );
+
+
+              markAllReadBtn.textContent =
+                "Try again";
+
+
+            } finally {
+
+              markAllReadBtn.disabled =
+                false;
+
+            }
+
+          }
+        );
+
+
+        /* =====================================================
+           REFRESH
+           ===================================================== */
+
+        refreshBtn.addEventListener(
+          "click",
+          async function () {
+
+            refreshBtn.disabled =
+              true;
+
+            refreshBtn.textContent =
+              "Refreshing...";
+
+
+            try {
+
+              await loadNotifications();
+
+            } catch (error) {
+
+              console.error(
+                error
+              );
+
+              notificationList.innerHTML = `
+
+                <div class="notifications-error">
+
+                  Unable to load notifications.
+
+                  <br>
+
+                  <small>
+                    ${escapeHtml(
+                      error.message
+                    )}
+                  </small>
+
+                </div>
+
+              `;
+
+            } finally {
+
+              refreshBtn.disabled =
+                false;
+
+              refreshBtn.textContent =
+                "Refresh";
+
+            }
+
+          }
+        );
+
+
+        /* =====================================================
+           LOGOUT
+           ===================================================== */
+
+        logoutBtn.addEventListener(
+          "click",
+          async function () {
+
+            logoutBtn.disabled =
+              true;
+
+            logoutBtn.textContent =
+              "Logging out...";
+
+
+            const {
+              error
+            } =
+              await supabase
+                .auth
+                .signOut();
+
+
+            if (error) {
+
+              console.error(
+                error
+              );
+
+              logoutBtn.disabled =
+                false;
+
+              logoutBtn.textContent =
+                "Logout";
+
+              return;
+
+            }
+
+
+            window.location.href =
+              "login.html";
+
+          }
+        );
+
+
+        /* =====================================================
+           INITIALIZE
+           ===================================================== */
+
+        try {
+
+          const loggedIn =
+            await getUser();
+
+
+          if (!loggedIn) {
+            return;
+          }
+
+
+          await loadNotifications();
+
+
+          console.log(
+            "Chirp notifications initialized successfully."
+          );
+
+
+        } catch (error) {
+
+          console.error(
+            "NOTIFICATIONS ERROR:",
+            error
+          );
+
+
+          notificationList.innerHTML = `
+
+            <div class="notifications-error">
+
+              Unable to load notifications.
+
+              <br><br>
+
+              <small>
+                ${escapeHtml(
+                  error.message
+                )}
+              </small>
+
+            </div>
+
+          `;
+
+        }
+
+      }
+    );
+
+  </script>
+
+</body>
+
+</html>
