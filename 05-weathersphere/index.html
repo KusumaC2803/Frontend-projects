@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="WeatherSphere - an interactive weather portal with forecasts and location support.">
+    <title>WeatherSphere | Interactive Weather Portal</title>
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+/>
+</head>
+
+<body class="weather-clear">
+    <main class="app-shell">
+
+        <!-- Top Navigation -->
+        <nav class="topbar">
+            <a href="#" class="brand" aria-label="WeatherSphere home">
+                <div class="brand-icon">
+                    <i class="fa-solid fa-cloud-sun"></i>
+                </div>
+                <div>
+                    <h1>WeatherSphere</h1>
+                    <span>Interactive Weather Portal</span>
+                </div>
+            </a>
+
+            <div class="search-wrapper">
+                <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                <input
+                    type="text"
+                    id="cityInput"
+                    placeholder="Search any city..."
+                    autocomplete="off"
+                >
+                <button id="searchBtn" class="search-btn" aria-label="Search weather">
+                    Search
+                </button>
+            </div>
+
+            <button id="locationBtn" class="location-btn" type="button">
+                <i class="fa-solid fa-location-crosshairs"></i>
+                <span>My Location</span>
+            </button>
+        </nav>
+
+        <!-- Status Message -->
+        <div id="statusMessage" class="status-message" role="status" aria-live="polite"></div>
+
+        <!-- Loading State -->
+        <section id="loading" class="loading-state">
+            <div class="loader"></div>
+            <p>Updating your weather experience...</p>
+        </section>
+
+        <!-- Weather Content -->
+        <div id="weatherContent" class="weather-content hidden">
+
+            <!-- Hero Section -->
+            <section class="hero-grid">
+                <article class="current-weather glass-card">
+                    <div class="card-heading">
+                        <div>
+                            <p class="eyebrow">CURRENT WEATHER</p>
+                            <h2 id="locationName">Loading...</h2>
+                            <p id="localTime" class="local-time">--</p>
+                        </div>
+                        <span id="conditionBadge" class="condition-badge">--</span>
+                    </div>
+
+                    <div class="current-main">
+                        <img id="weatherImage" class="weather-image" src="assets/cloud.png" alt="Current weather">
+                        <div class="temperature-block">
+                            <div class="temperature-row">
+                                <span id="temperature">--</span><sup>°C</sup>
+                            </div>
+                            <p id="conditionText">Loading weather...</p>
+                            <p id="feelsLike">Feels like --°C</p>
+                        </div>
+                    </div>
+
+                    <div class="quick-stats">
+                        <div class="quick-stat">
+                            <i class="fa-solid fa-droplet"></i>
+                            <div>
+                                <span>Humidity</span>
+                                <strong id="humidity">--%</strong>
+                            </div>
+                        </div>
+
+                        <div class="quick-stat">
+                            <i class="fa-solid fa-wind"></i>
+                            <div>
+                                <span>Wind</span>
+                                <strong id="windSpeed">-- km/h</strong>
+                            </div>
+                        </div>
+
+                        <div class="quick-stat">
+                            <i class="fa-solid fa-eye"></i>
+                            <div>
+                                <span>Visibility</span>
+                                <strong id="visibility">-- km</strong>
+                            </div>
+                        </div>
+
+                        <div class="quick-stat">
+                            <i class="fa-solid fa-gauge-high"></i>
+                            <div>
+                                <span>Pressure</span>
+                                <strong id="pressure">-- mb</strong>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Today's Highlight -->
+                <aside class="today-highlight glass-card">
+                    <div class="highlight-top">
+                        <p class="eyebrow">TODAY'S HIGHLIGHTS</p>
+                        <i class="fa-solid fa-sparkles"></i>
+                    </div>
+
+                    <div class="sun-times">
+                        <div class="sun-item">
+                            <div class="sun-icon sunrise">
+                                <i class="fa-solid fa-sun"></i>
+                            </div>
+                            <div>
+                                <span>Sunrise</span>
+                                <strong id="sunrise">--</strong>
+                            </div>
+                        </div>
+
+                        <div class="sun-line"></div>
+
+                        <div class="sun-item">
+                            <div class="sun-icon sunset">
+                                <i class="fa-solid fa-moon"></i>
+                            </div>
+                            <div>
+                                <span>Sunset</span>
+                                <strong id="sunset">--</strong>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="temperature-range">
+                        <div class="range-labels">
+                            <span>Today's Range</span>
+                            <strong id="todayRange">--° / --°</strong>
+                        </div>
+                        <div class="range-bar">
+                            <span id="rangeFill"></span>
+                        </div>
+                    </div>
+
+                    <div class="extra-details">
+                        <div>
+                            <span>UV Index</span>
+                            <strong id="uvIndex">--</strong>
+                        </div>
+                        <div>
+                            <span>Chance of Rain</span>
+                            <strong id="rainChance">--%</strong>
+                        </div>
+                    </div>
+                </aside>
+            </section>
+
+            <!-- Hourly Forecast -->
+            <section class="forecast-section">
+                <div class="section-header">
+                    <div>
+                        <p class="eyebrow">NEXT HOURS</p>
+                        <h2>Hourly Forecast</h2>
+                    </div>
+
+                    <div class="carousel-controls">
+                        <button id="hourlyPrev" class="carousel-btn" aria-label="Previous hourly forecast">
+                            <i class="fa-solid fa-chevron-left"></i>
+                        </button>
+                        <button id="hourlyNext" class="carousel-btn" aria-label="Next hourly forecast">
+                            <i class="fa-solid fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div id="hourlyForecast" class="forecast-carousel"></div>
+            </section>
+
+            <!-- 7 Day Forecast -->
+            <section class="forecast-section">
+                <div class="section-header">
+                    <div>
+                        <p class="eyebrow">WEEKLY OUTLOOK</p>
+                        <h2>7-Day Forecast</h2>
+                    </div>
+                </div>
+
+                <div id="dailyForecast" class="daily-grid"></div>
+            </section>
+        </div>
+
+        <!-- Error State -->
+        <section id="errorState" class="error-state hidden">
+            <img src="assets/404.png" alt="Location not found">
+            <h2>Weather data unavailable</h2>
+            <p id="errorText">Please search for another location and try again.</p>
+            <button id="retryBtn" type="button">Try My Location Again</button>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
